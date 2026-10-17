@@ -1,0 +1,24 @@
+---
+const links = [
+  { href: '#projects', tr: 'projeler', en: 'projects' },
+  { href: '#live', tr: 'canlı-akış', en: 'live-stream' },
+  { href: '#timeline', tr: 'zaman-çizelgesi', en: 'timeline' },
+  { href: '#contact', tr: 'iletişim', en: 'contact' },
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="#top">
+      <span class="host">yigiterf@</span><span class="path">github.io</span><span class="host">:~</span>
+    </a>
+    <nav aria-label="Ana menü">
+      <ul>
+        {links.map((l) => (
+          <li><a href={l.href} data-en={l.en}>{l.tr}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Switch language">EN</button>
+  </div>
+</header>

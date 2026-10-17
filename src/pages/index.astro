@@ -1,0 +1,188 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { featured } from '../data/projects';
+
+// Zaman çizelgesi — repolardaki gerçek tarihlerden derlendi
+const timeline = [
+  {
+    date: '2019-03',
+    title: 'sistem başlatıldı: ilk commit',
+    text: "GitHub'a katıldım — ilk dönem C/JS karışık denemeler, oyun projeleri (RpsGame) ve algoritma çalışmaları.",
+    tags: ['C', 'Algoritma', 'Deneme'],
+  },
+  {
+    date: '2023',
+    title: 'web ve python katmanı',
+    text: 'To-Do-App, Word-Tracker, Flask-Blog ve kapsamlı Türkçe JavaScript notlarım. Uygulamalı öğrenme yılı.',
+    tags: ['JavaScript', 'Python', 'Flask'],
+  },
+  {
+    date: '2024-04',
+    title: 'StudyCount — canlıda ilk ürün',
+    text: 'Ders çalışma takip uygulama; canlı: study-count.vercel.app. Dağıtım (deploy), kullanım ve geri bildirim döngüsünü öğrendim.',
+    tags: ['JavaScript', 'Vercel', 'Ürün'],
+  },
+  {
+    date: '2026-07',
+    title: 'robotik çekirdeğine geçiş',
+    text: 'Cafe robotu simülasyonu ve robotik atölyesi — ROS/Gazebo ortamında modelleme ve kontrol.',
+    tags: ['ROS', 'Gazebo', 'CMake'],
+  },
+  {
+    date: '2026-08',
+    title: 'İHA tutkusu: güdüm & otonomi',
+    text: 'Patrol drone, hassas iniş algoritmaları ve oransal navigasyon (PN) güdüm simülasyonu. Robotik + gömülü kesişimi.',
+    tags: ['ROS 2', 'Drone', 'Control'],
+  },
+  {
+    date: '2026-10',
+    title: 'donanım katmanı: CHIP-8',
+    text: 'Hazır çerçeve yok — bellekten opcode\'a, fetch-decode-execute döngüsünü sıfırdan C ile yazıyorum. Ayrıca ses sinyali işleme serüveni.',
+    tags: ['C', 'Emülatör', 'DSP'],
+  },
+];
+
+const roleWordsTR = ['Robotik Geliştirici', 'Gömülü Sistemler', 'ROS 2 Simülasyonu', 'CHIP-8 Emülatörü'];
+const roleWordsEN = ['Robotics Developer', 'Embedded Systems', 'ROS 2 Simulation', 'CHIP-8 Emulator'];
+---
+
+<Layout>
+  <!-- BENTO HERO: kimlik + canlı terminal + canlı istatistik + durum -->
+  <div class="bento" id="top">
+    <section class="cell cell-identity">
+      <p class="kicker"><span class="ok">◉</span> <span data-en="ok — connected: github.com/yigiterf">ok — bağlandı: github.com/yigiterf</span></p>
+      <h1 class="identity-name">yigiterf<span class="cursor">▮</span></h1>
+      <p
+        class="identity-roles"
+        data-rotate
+        data-tr-words={JSON.stringify(roleWordsTR)}
+        data-en-words={JSON.stringify(roleWordsEN)}
+      >Robotik Geliştirici</p>
+      <p class="identity-summary" data-en="Robotics, embedded systems and simulation. From ROS 2 guidance runs to a from-scratch CHIP-8 emulator — I like going below the abstractions until the metal replies.">
+        Robotik, gömülü sistemler ve simülasyon. ROS 2 güdüm koşularından sıfırdan CHIP-8
+        emülatörüne — soyutlamaların altına, metal cevap verene kadar inmeyi seviyorum.
+      </p>
+      <div class="identity-links">
+        <a class="btn-primary btn" href="https://github.com/yigiterf?tab=repositories" target="_blank" rel="noopener">ls ~/projects</a>
+        <a class="btn" href="#contact" data-en="fg %contact">fg %iletişim</a>
+      </div>
+    </section>
+
+    <section class="cell cell-terminal" aria-label="Etkileşimli terminal">
+      <div class="term-bar">
+        <span class="term-dots"><span></span><span></span><span></span></span>
+        <span class="term-title">yigiterf@github.io — bash — 80×24</span>
+        <span class="term-hint">`help` yaz</span>
+      </div>
+      <div class="term-body" id="term-body">
+        <div class="term-out" id="term-out"></div>
+        <div class="term-line">
+          <span class="term-prompt">➜ ~$</span>
+          <input class="term-in" id="term-in" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal komut girişi" />
+        </div>
+      </div>
+    </section>
+
+    <section class="cell cell-stats">
+      <h3><span class="hash">#</span> <span data-en="GitHub — live">GitHub — canlı</span></h3>
+      <dl class="stats-row">
+        <div><dt data-en="REPOS">REPO</dt><dd id="stat-repos">…</dd></div>
+        <div><dt data-en="FOLLOWERS">TAKİPÇİ</dt><dd id="stat-followers">…</dd></div>
+        <div><dt data-en="FOLLOWING">TAKİP</dt><dd id="stat-following">…</dd></div>
+      </dl>
+    </section>
+
+    <section class="cell cell-status">
+      <h3><span class="hash">#</span> <span data-en="Status">Durum</span></h3>
+      <ul class="status-list">
+        <li><span class="k">durum</span><span class="v on" data-en="online">çevrimiçi</span></li>
+        <li><span class="k">odak</span><span class="v" data-en="ROS 2 · UAV">ROS 2 · İHA</span></li>
+        <li><span class="k">dil</span><span class="v">C · Python</span></li>
+        <li><span class="k">ayak izi</span><a class="v" href="https://study-count.vercel.app" target="_blank" rel="noopener">studycount ↗</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- PROJE MODÜLLERİ -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-head">
+        <span class="no">01</span>
+        <h2><span class="green">$</span> <span data-en="Project Modules">Proje Modülleri</span></h2>
+        <span class="line"></span>
+      </div>
+      <div class="grid">
+        {featured.map((p, i) => <ProjectCard project={p} index={i} />)}
+      </div>
+      <p class="see-all">
+        <a href="https://github.com/yigiterf?tab=repositories" target="_blank" rel="noopener" data-en="git log --all → full list">git log --all → tam liste</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- GitHub'dan canlı akış -->
+  <section class="section" id="live">
+    <div class="container">
+      <div class="section-head">
+        <span class="no">02</span>
+        <h2><span class="amber">$</span> <span data-en="Live Stream">Canlı Akış</span></h2>
+        <span class="line"></span>
+      </div>
+      <p class="muted" style="margin-top:-16px;margin-bottom:24px;font-size:.88rem" data-en="surveilling the repos — pulled automatically from GitHub API">
+        repoları gözlemlüyor — GitHub API'den otomatik çekilir
+      </p>
+      <div class="grid" id="live-grid">
+        <p class="muted mono" style="font-size:.82rem">⌛ API'ye bağlanılıyor…</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DENEYİM ZAMAN ÇİZELGESİ -->
+  <section class="section" id="timeline">
+    <div class="container">
+      <div class="section-head">
+        <span class="no">03</span>
+        <h2><span class="green">$</span> <span data-en="Experience — commit history">Deneyim — commit geçmişi</span></h2>
+        <span class="line"></span>
+      </div>
+      <ul class="timeline">
+        {timeline.map((t) => (
+          <li>
+            <span class="t-date">[{t.date}]</span>
+            <div class="t-title">{t.title}</div>
+            <p>{t.text}</p>
+            <div class="t-tags">
+              {t.tags.map((tag) => <span class="hex-tag" data-en={tag}>{tag}</span>)}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- İLETİŞİM -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-head">
+        <span class="no">04</span>
+        <h2><span class="amber">$</span> <span data-en="Contact">İletişim</span></h2>
+        <span class="line"></span>
+      </div>
+      <div class="contact-grid">
+        <div class="theme-cell cell contact-copy">
+          <p data-en="A project, a collaboration, or a good old-fashioned low-level chat — the line is open. Bir proje, iş birliği ya da iyi bir low-level sohbeti — hat açık.">
+            Bir proje, iş birliği ya da iyi bir low-level sohbeti — hat açık.
+          </p>
+          <div class="code-line">
+            <span class="c">/* sendmsg */</span> <span class="k">await</span> ping(<span class="s">'yigiterf'</span>);
+          </div>
+        </div>
+        <div class="cell contact-links">
+          <a class="btn" href="https://github.com/yigiterf" target="_blank" rel="noopener">github.com/yigiterf<span class="arrow">↗</span></a>
+          <a class="btn" href="mailto:örnek@posta.com" data-en="E-mail: örnek@posta.com">E-posta: örnek@posta.com<span class="arrow">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
