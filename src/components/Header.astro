@@ -1,10 +1,11 @@
 ---
 const links = [
-  { href: '#projects', tr: 'projeler', en: 'projects' },
-  { href: '#terminal', tr: 'konsol', en: 'console' },
-  { href: '#live', tr: 'repolar', en: 'repos' },
-  { href: '#contact', tr: 'iletişim', en: 'contact' },
+  { href: '#projects', tr: 'projeler', en: 'projects', ja: 'プロジェクト' },
+  { href: '#terminal', tr: 'konsol', en: 'console', ja: 'コンソール' },
+  { href: '#live', tr: 'repolar', en: 'repos', ja: 'リポジトリ' },
+  { href: '#contact', tr: 'iletişim', en: 'contact', ja: 'お問い合わせ' },
 ];
+const langs = ['TR', 'EN', 'JA'];
 ---
 
 <header class="site-header">
@@ -16,13 +17,17 @@ const links = [
       </svg>
       <span class="logo-word">yigiterf<span class="lab">·lab</span></span>
     </a>
-    <nav aria-label="Ana menü">
+    <nav aria-label="Ana menü / Main menu / メニュー">
       <ul>
         {links.map((l) => (
-          <li><a href={l.href} data-en={l.en}>{l.tr}</a></li>
+          <li><a href={l.href} data-en={l.en} data-ja={l.ja}>{l.tr}</a></li>
         ))}
       </ul>
     </nav>
-    <button id="lang-toggle" class="lang-toggle" type="button" aria-label="Switch language">EN</button>
+    <div class="lang-switch" role="group" aria-label="Dil / Language / 言語">
+      {langs.map((code) => (
+        <button type="button" data-lang={code.toLowerCase()} class="lang-btn">{code}</button>
+      ))}
+    </div>
   </div>
 </header>

@@ -25,14 +25,14 @@ const no = String(index + 1).padStart(2, '0');
   </header>
   <div class="fig-body">
     <h3 class="fig-title"><a href={url} target="_blank" rel="noopener">{title}</a></h3>
-    <p class="fig-desc" data-tr={desc.tr} data-en={desc.en}>{desc.tr}</p>
+    <p class="fig-desc" data-tr={desc.tr} data-en={desc.en} data-ja={desc.ja}>{desc.tr}</p>
     <ul class="fig-tags">
       {tags.tr.map((tag, i) => (
-        <li class="chip" data-tr={tag} data-en={tags.en[i]}>{tag}</li>
+        <li class="chip" data-tr={tag} data-en={tags.en[i]} data-ja={tags.ja[i]}>{tag}</li>
       ))}
     </ul>
     <footer class="fig-foot">
-      <a class="fig-link" href={url} target="_blank" rel="noopener" aria-label={title} data-en="open ↗">aç ↗</a>
+      <a class="fig-link" href={url} target="_blank" rel="noopener" data-en="open ↗" data-ja="開く ↗">aç ↗</a>
       <span class="fig-date">{date?.slice(0, 7)}</span>
     </footer>
   </div>

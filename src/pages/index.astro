@@ -4,12 +4,17 @@ import ProjectCard from '../components/ProjectCard.astro';
 import { featured } from '../data/projects';
 
 const ribbonItems = [
-  'ROS 2', 'İHA güdüm', 'CHIP-8', 'C / C++', 'Python', 'gömülü sistemler',
-  'sinyal işleme', 'Gazebo', 'Linux', 'kontrol teorisi', 'sıfırdan derleme',
-];
-const ribbonItemsEN = [
-  'ROS 2', 'UAV guidance', 'CHIP-8', 'C / C++', 'Python', 'embedded systems',
-  'signal processing', 'Gazebo', 'Linux', 'control theory', 'build from scratch',
+  { tr: 'ROS 2', en: 'ROS 2', ja: 'ROS 2' },
+  { tr: 'İHA güdüm', en: 'UAV guidance', ja: 'UAV 誘導' },
+  { tr: 'CHIP-8', en: 'CHIP-8', ja: 'CHIP-8' },
+  { tr: 'C / C++', en: 'C / C++', ja: 'C / C++' },
+  { tr: 'Python', en: 'Python', ja: 'Python' },
+  { tr: 'gömülü sistemler', en: 'embedded systems', ja: '組み込みシステム' },
+  { tr: 'sinyal işleme', en: 'signal processing', ja: '信号処理' },
+  { tr: 'Gazebo', en: 'Gazebo', ja: 'Gazebo' },
+  { tr: 'Linux', en: 'Linux', ja: 'Linux' },
+  { tr: 'kontrol teorisi', en: 'control theory', ja: '制御理論' },
+  { tr: 'sıfırdan derleme', en: 'build from scratch', ja: 'ゼロからビルド' },
 ];
 ---
 
@@ -19,40 +24,53 @@ const ribbonItemsEN = [
     <div class="container hero-grid">
       <div class="hero-copy">
         <h1 class="hero-title">yigiterf</h1>
-        <p class="hero-sub" data-en="Robotics & embedded systems developer">Robotik & gömülü sistemler geliştiricisi</p>
-        <p class="hero-summary" data-en="I work on robotics, embedded systems and simulation. I develop ROS 2 guidance simulations, build a CHIP-8 emulator from scratch, and work on UAV autonomy.">
+        <p class="hero-sub" data-en="Robotics & embedded systems developer" data-ja="ロボティクス・組み込みシステム開発者">Robotik & gömülü sistemler geliştiricisi</p>
+        <p
+          class="hero-summary"
+          data-en="I work on robotics, embedded systems and simulation. I develop ROS 2 guidance simulations, build a CHIP-8 emulator from scratch, and work on UAV autonomy."
+          data-ja="ロボティクス、組み込みシステム、シミュレーションを専門としています。ROS 2 による誘導シミュレーションの開発、CHIP-8 エミュレータの一からの実装、そして UAV の自律制御に取り組んでいます。"
+        >
           Robotik, gömülü sistemler ve simülasyon üzerine çalışıyorum. ROS 2 ile güdüm
           simülasyonları geliştiriyor, sıfırdan CHIP-8 emülatörü yazıyor ve İHA otonomisi
           üzerine çalışıyorum.
         </p>
         <div class="chip-row">
           <span class="chip mint">ROS 2</span>
-          <span class="chip lilac" data-en="UAV">İHA</span>
+          <span class="chip lilac" data-en="UAV" data-ja="UAV">İHA</span>
           <span class="chip sky">C / C++</span>
           <span class="chip peach">Python</span>
           <span class="chip lilac">CHIP-8</span>
           <span class="chip mint">Gazebo</span>
         </div>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#projects" data-en="Browse projects">Projelere göz at</a>
-          <a class="btn" href="#contact" data-en="Contact me">İletişime geç</a>
+          <a class="btn btn-primary" href="#projects" data-en="Browse projects" data-ja="プロジェクトを見る">Projelere göz at</a>
+          <a class="btn" href="#contact" data-en="Contact me" data-ja="お問い合わせ">İletişime geç</a>
         </div>
       </div>
 
-      <aside class="spec-card" aria-label="Künye kartı">
+      <aside class="spec-card" aria-label="Künye kartı / Profile card / プロフィール">
         <div class="spec-stripe">
-          <span>yigiterf — künye</span>
+          <span data-en="yigiterf — profile" data-ja="yigiterf — プロフィール">yigiterf — künye</span>
           <span>since 2019</span>
         </div>
         <dl class="spec-list">
-          <div><dt data-en="focus">odak</dt><dd>ROS 2 · İHA · emülatör</dd></div>
-          <div><dt>stack</dt><dd>C · Python</dd></div>
-          <div><dt data-en="fields">alanlar</dt><dd data-en="robotics · embedded · DSP">robotik · gömülü · DSP</dd></div>
+          <div>
+            <dt data-en="focus" data-ja="専門分野">odak</dt>
+            <dd data-en="ROS 2 · UAV · emulator" data-ja="ROS 2 · UAV · エミュレータ">ROS 2 · İHA · emülatör</dd>
+          </div>
+          <div>
+            <dt>stack</dt>
+            <dd>C · Python</dd>
+          </div>
+          <div>
+            <dt data-en="fields" data-ja="分野">alanlar</dt>
+            <dd data-en="robotics · embedded · DSP" data-ja="ロボティクス · 組み込み · DSP">robotik · gömülü · DSP</dd>
+          </div>
         </dl>
         <div class="spec-stats">
-          <div><b id="stat-repos">…</b><span data-en="repos">repo</span></div>
-          <div><b id="stat-followers">…</b><span data-en="followers">takipçi</span></div>
-          <div><b id="stat-following">…</b><span data-en="following">takip</span></div>
+          <div><b id="stat-repos">…</b><span data-en="repos" data-ja="リポジトリ">repo</span></div>
+          <div><b id="stat-followers">…</b><span data-en="followers" data-ja="フォロワー">takipçi</span></div>
+          <div><b id="stat-following">…</b><span data-en="following" data-ja="フォロー中">takip</span></div>
         </div>
       </aside>
     </div>
@@ -61,15 +79,9 @@ const ribbonItemsEN = [
   <!-- kayan şerit -->
   <div class="ribbon" aria-hidden="true">
     <div class="ribbon-track">
-      {ribbonItems.map((item, i) => (
+      {[...ribbonItems, ...ribbonItems].map((item) => (
         <>
-          <span data-en={ribbonItemsEN[i]}>{item}</span>
-          <span class="dia">◆</span>
-        </>
-      ))}
-      {ribbonItems.map((item, i) => (
-        <>
-          <span data-en={ribbonItemsEN[i]}>{item}</span>
+          <span data-en={item.en} data-ja={item.ja}>{item.tr}</span>
           <span class="dia">◆</span>
         </>
       ))}
@@ -81,14 +93,20 @@ const ribbonItemsEN = [
     <div class="container">
       <div class="sec-head">
         <span class="sec-no">01</span>
-        <h2 data-en="Projects">Projeler<span class="dot">.</span></h2>
+        <h2 data-en="Projects" data-ja="プロジェクト">Projeler<span class="dot">.</span></h2>
         <span class="rule"></span>
       </div>
       <div class="figs">
         {featured.map((p, i) => <ProjectCard project={p} index={i} />)}
       </div>
       <p class="see-all">
-        <a href="https://github.com/yigiterf?tab=repositories" target="_blank" rel="noopener" data-en="All projects on GitHub ↗">GitHub'daki tüm projeler ↗</a>
+        <a
+          href="https://github.com/yigiterf?tab=repositories"
+          target="_blank"
+          rel="noopener"
+          data-en="All projects on GitHub ↗"
+          data-ja="GitHub のすべてのプロジェクト ↗"
+        >GitHub'daki tüm projeler ↗</a>
       </p>
     </div>
   </section>
@@ -98,14 +116,14 @@ const ribbonItemsEN = [
     <div class="container">
       <div class="sec-head">
         <span class="sec-no" style="background:var(--sky)">02</span>
-        <h2 data-en="Console">Konsol<span class="dot">.</span></h2>
+        <h2 data-en="Console" data-ja="コンソール">Konsol<span class="dot">.</span></h2>
         <span class="rule"></span>
       </div>
       <div class="term-paper">
         <div class="term-bar">
           <span class="term-dots"><span></span><span></span><span></span></span>
           <span class="term-title">yigiterf@github.io : bash</span>
-          <span class="term-hint" data-en="tip: help">ipucu: help</span>
+          <span class="term-hint" data-en="tip: help" data-ja="ヒント: help">ipucu: help</span>
         </div>
         <div class="term-body" id="term-body">
           <div class="term-out" id="term-out"></div>
@@ -115,8 +133,10 @@ const ribbonItemsEN = [
           </div>
         </div>
       </div>
-      <p class="term-note" data-en="Type `help` to list commands — ArrowUp/Down navigates history.">
-        Komutları listelemek için <code>help</code> yazın — ArrowUp/Down ile geçmişte gezinebilirsiniz.
+      <p class="term-note">
+        <span data-en="Type" data-ja="コマンド一覧は">Komutları listelemek için</span>
+        <code>help</code>
+        <span data-en="to list commands — ArrowUp/Down navigates history." data-ja="と入力してください。ArrowUp/Down で履歴を操作できます。">yazın — ArrowUp/Down ile geçmişte gezinebilirsiniz.</span>
       </p>
     </div>
   </section>
@@ -126,13 +146,12 @@ const ribbonItemsEN = [
     <div class="container">
       <div class="sec-head">
         <span class="sec-no" style="background:var(--lilac)">03</span>
-        <h2 data-en="Recent Repos">Son Repolar<span class="dot">.</span></h2>
+        <h2 data-en="Recent Repos" data-ja="最近のリポジトリ">Son Repolar<span class="dot">.</span></h2>
         <span class="rule"></span>
       </div>
-      <p class="muted" style="margin-top:-18px;margin-bottom:26px;font-size:.88rem" data-en="Listed automatically via the GitHub API.">
+      <p class="muted live-note" data-en="Listed automatically via the GitHub API." data-ja="GitHub API から自動で取得しています。">
         GitHub API üzerinden otomatik listelenir.
-      </p>
-      <div class="figs" id="live-grid">
+      </p>      <div class="figs" id="live-grid">
         <p class="mono muted" style="font-size:.8rem">⌛ yükleniyor…</p>
       </div>
     </div>
@@ -143,12 +162,16 @@ const ribbonItemsEN = [
     <div class="container">
       <div class="sec-head">
         <span class="sec-no" style="background:var(--pink)">04</span>
-        <h2 data-en="Contact">İletişim<span class="dot">.</span></h2>
+        <h2 data-en="Contact" data-ja="お問い合わせ">İletişim<span class="dot">.</span></h2>
         <span class="rule"></span>
       </div>
       <div class="contact-wrap">
-        <h3 class="contact-title" data-en="Get in touch">Benimle iletişime geç</h3>
-        <p class="contact-sub" data-en="For projects, collaboration or any questions, feel free to reach out.">
+        <h3 class="contact-title" data-en="Get in touch" data-ja="お気軽にご連絡ください">Benimle iletişime geç</h3>
+        <p
+          class="contact-sub"
+          data-en="For projects, collaboration or any questions, feel free to reach out."
+          data-ja="プロジェクトのご相談、コラボレーション、ご質問など、お気軽にご連絡ください。"
+        >
           Proje, iş birliği ya da sorularınız için bana ulaşabilirsiniz.
         </p>
         <div class="contact-links">

@@ -12,7 +12,8 @@
     Rust: '#b07219', Go: '#4f7ca8', Java: '#b07219', Lua: '#4f7ca8',
   };
   const featured = new Set((window.FEATURED_TITLES ?? []).map((t) => t.toLowerCase()));
-  const isEN = (localStorage.getItem('lang') ?? 'tr') === 'en';
+  const lang = localStorage.getItem('lang') ?? 'tr';
+  const OPEN_LABEL = { tr: 'aç ↗', en: 'open ↗', ja: '開く ↗' };
 
   // Web/JS projeleri bu portfolyoda listelenmez
   const EXCLUDED_LANGS = new Set(['JavaScript', 'TypeScript', 'HTML', 'CSS']);
@@ -94,7 +95,7 @@
     link.href = r.html_url;
     link.target = '_blank';
     link.rel = 'noopener';
-    link.textContent = isEN ? 'open ↗' : 'aç ↗';
+    link.textContent = OPEN_LABEL[lang] ?? OPEN_LABEL.tr;
     foot.appendChild(link);
     body.appendChild(foot);
 
