@@ -139,34 +139,14 @@ body {
 .lang-toggle:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); }
 .lang-toggle:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
 
-/* ---- 3B dönen üçgen (dikey eksende) ---- */
+/* ---- 3B dönen üçgen (logo) ---- */
 @keyframes spinY {
   from { transform: rotateY(0deg); }
   to { transform: rotateY(360deg); }
 }
 
-.triangle-deco {
-  position: absolute;
-  top: -1%;
-  right: 1%;
-  width: clamp(90px, 11vw, 145px);
-  transform: rotate(-14deg);
-  perspective: 620px;
-  pointer-events: none;
-  z-index: 2;
-}
-.triangle-deco .spin3d {
-  animation: spinY 13s linear infinite;
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 16px 12px rgba(36, 31, 26, 0.22));
-}
-.triangle-deco svg { display: block; width: 100%; height: auto; }
-
 @media (prefers-reduced-motion: reduce) {
-  .logo-mark, .triangle-deco .spin3d, .ribbon-track { animation: none !important; }
-}
-@media (max-width: 860px) {
-  .triangle-deco { display: none; }
+  .logo-mark, .ribbon-track { animation: none !important; }
 }
 
 /* ---- hero ---- */
