@@ -82,22 +82,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 22px;
-  padding-block: 11px;
+  gap: 26px;
+  padding-block: 15px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
   color: var(--ink);
   white-space: nowrap;
-  perspective: 200px;
+  perspective: 250px;
 }
 .logo-mark {
-  width: 20px;
-  height: 20px;
+  width: 27px;
+  height: 27px;
   flex-shrink: 0;
   animation: spinY 14s linear infinite;
   transform-style: preserve-3d;
@@ -105,22 +105,23 @@ body {
 .logo-word {
   font-family: var(--mono);
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 1.15rem;
 }
 .logo-word .lab { color: var(--red-deep); }
 
 .site-header nav ul {
   display: flex;
-  gap: 20px;
+  gap: 26px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 .site-header nav a {
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   color: var(--ink-soft);
   text-decoration: none;
+  white-space: nowrap;
 }
 .site-header nav a::before { content: '/'; color: var(--red); margin-right: 3px; }
 .site-header nav a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px; text-decoration-color: var(--red); }
@@ -128,21 +129,21 @@ body {
 .lang-switch {
   display: inline-flex;
   border: 1.5px solid var(--ink);
-  border-radius: 7px;
+  border-radius: 8px;
   overflow: hidden;
   box-shadow: 2px 2px 0 var(--ink);
   flex-shrink: 0;
 }
 .lang-btn {
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--ink-soft);
   background: var(--paper-2);
   border: 0;
   border-right: 1.5px solid var(--ink);
-  padding: 5px 10px;
+  padding: 6px 13px;
   cursor: pointer;
   transition: background 0.12s, color 0.12s;
 }
@@ -177,8 +178,8 @@ body {
 
 .hero-title {
   font-weight: 700;
-  font-size: clamp(3rem, 7.5vw, 5.2rem);
-  line-height: 1.02;
+  font-size: clamp(2.6rem, 6.4vw, 4.5rem);
+  line-height: 1.04;
   letter-spacing: -0.03em;
   margin: 0;
 }
@@ -545,9 +546,9 @@ body {
   .hero { padding-block: 48px 40px; }
   .header-inner { flex-wrap: wrap; row-gap: 10px; }
   .site-header nav { width: 100%; order: 3; }
-  .site-header nav ul { justify-content: space-between; width: 100%; gap: 8px; }
-  .site-header nav a { font-size: 0.72rem; }
-  .site-header nav a::before { margin-right: 2px; }
+  .site-header nav ul { justify-content: space-between; width: 100%; gap: 10px; }
+  .site-header nav a { font-size: 0.85rem; }
+  .site-header nav a::before { content: none; }
 }
 
 @media (max-width: 720px) {
@@ -566,11 +567,11 @@ body {
 
 @media (max-width: 480px) {
   body { font-size: 15.5px; }
-  .hero-title { font-size: clamp(2.5rem, 13vw, 3.6rem); }
+  .hero-title { font-size: clamp(2.1rem, 10.5vw, 3rem); }
   .hero-sub { font-size: 0.8rem; }
-  .logo-word { font-size: 0.84rem; }
-  .logo-mark { width: 17px; height: 17px; }
-  .lang-btn { padding: 4px 8px; font-size: 0.66rem; }
+  .logo-word { font-size: 1rem; }
+  .logo-mark { width: 22px; height: 22px; }
+  .lang-btn { padding: 6px 11px; font-size: 0.78rem; }
   .btn { font-size: 0.76rem; padding: 9px 14px; }
   .btn-primary { width: 100%; justify-content: center; }
   .hero-cta { gap: 10px; }
