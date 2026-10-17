@@ -49,7 +49,7 @@
     },
     contact: [
       ['github → https://github.com/yigiterf', 'l-ok'],
-      ['mail   → örnek@posta.com (aşağıdaki İletişim bölümü)', 'l-warn'],
+      ['mail   → ferhatyigiter.mail@gmail.com', 'l-warn'],
     ],
     github: () => {
       window.open('https://github.com/yigiterf', '_blank', 'noopener');

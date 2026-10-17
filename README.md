@@ -113,6 +113,6 @@ token'la reddediyor. Üç adımda tam otomatik akışa geçebilirsin (sonrasınd
 
 ## Yapılacaklar (senin doldurman gerekenler)
 
-- [ ] İletişim bölümündeki `mailto:örnek@posta.com` adresini e-postanla
-      değiştir (`src/pages/index.astro` ve `public/terminal.js`).
+- [x] İletişim e-postası ayarlandı: `ferhatyigiter.mail@gmail.com`
+      (`src/pages/index.astro` ve `public/terminal.js`).
 - [ ] İstersen terminalde `neofetch` çıktısını kendine göre zenginleştir.
