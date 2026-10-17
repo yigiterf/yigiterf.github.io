@@ -95,32 +95,4 @@ export const featured: Project[] = [
       en: 'Audio signal processing experiments in Python.',
     },
   },
-  {
-    title: 'StudyCount',
-    url: 'https://github.com/yigiterf/StudyCount',
-    language: 'JavaScript',
-    date: '2024-04-20',
-    tags: {
-      tr: ['Web', 'JS', 'Verimlilik'],
-      en: ['Web', 'JS', 'Productivity'],
-    },
-    desc: {
-      tr: 'Ders çalışma takip web uygulaması — canlı: study-count.vercel.app',
-      en: 'A study-tracking web app — live at study-count.vercel.app.',
-    },
-  },
-  {
-    title: 'Javascript-Turkce',
-    url: 'https://github.com/yigiterf/Javascript-Turkce',
-    language: 'JavaScript',
-    date: '2024-05-18',
-    tags: {
-      tr: ['JS', 'Notlar', 'Öğrenme'],
-      en: ['JS', 'Notes', 'Learning'],
-    },
-    desc: {
-      tr: 'Farklı kaynaklardan JavaScript öğrenirken tuttuğum Türkçe notlar.',
-      en: 'My Turkish-language notes taken while learning JavaScript.',
-    },
-  },
 ];

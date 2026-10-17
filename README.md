@@ -7,21 +7,20 @@ canlı GitHub verisi içerir.
 ## Özellikler
 
 - **Pastel zine estetiği** — fildişi kağıt zemin, kalın mürekkep kenarlıklar,
-  sert gölgeler, Fraunces serif başlıklar + JetBrains Mono etiketler.
-- **Dönen kırmızı ters üçgen** — hem logonun kendisi hem de hero'da büyük
-  bir süs olarak yavaşça kendi ekseninde döner (`prefers-reduced-motion`'da durur).
+  sert gölgeler. İki font ailesi: `Space Grotesk` (metin) + `JetBrains Mono`
+  (etiket/kod).
+- **3B dönen kırmızı üçgen** — hem logo hem de hero'da büyük süs olarak
+  dikey eksende (`rotateY`) kendi etrafında döner; arka yüz poligonuyla
+  derinlik hissi verilir. `prefers-reduced-motion`'da durur.
 - **Canlı çalışan konsol** — `help`, `whoami`, `ls`, `projects`, `skills`,
-  `neofetch`, `uptime`, `sudo`… ArrowUp/Down ile komut geçmişi
-  (`public/terminal.js`).
-- **Proje figürleri** — `Fig. 01…` başlıklı, pastel plakalı kartlar; tech-stack
-  etiketleri pill chip'ler. Kartlar hafif eğik durur, hover'da düzelir.
+  `neofetch`, `uptime`… ArrowUp/Down ile komut geçmişi (`public/terminal.js`).
+- **Proje kartları** — pastel plakalı, hafif eğik duran; hover'da düzelir.
+  Sadece robotik / gömülü / DSP odaklı projeler listelenir; JS/web projeleri
+  filtrelenir.
 - **Kayan şerit** — ROS 2 ◆ İHA güdüm ◆ CHIP-8 … marquee animasyonu.
-- **Logbook** — commit geçmişi estetiğinde, yıl italik serif başlıklı
-  zaman çizelgesi.
 - **TR / EN geçişi** — sağ üstteki buton; tercih `localStorage`'da saklanır.
-- **Canlı GitHub verisi** — künye kartındaki istatistikler ve "canlı akış"
-  figürleri GitHub API'den çalışma anında çekilir; yeni repo açtığında
-  sitede otomatik belirir.
+- **Canlı GitHub verisi** — künye kartındaki istatistikler ve "Son Repolar"
+  bölümü GitHub API'den çalışma anında çekilir.
 
 ## Geliştirme
 
@@ -62,6 +61,4 @@ git push -u origin main
 ## Yapılacaklar (senin doldurman gerekenler)
 
 - [ ] İletişim bölümündeki `mailto:örnek@posta.com` adresini e-postanla değiştir.
-- [ ] Zaman çizelgesi (`src/pages/index.astro` → `timeline`) girdilerini
-      kendine göre zenginleştir.
-- [ ] İstersen terminalde `neofetch` ASCII sanatını kendi logonla değiştir.
+- [ ] İstersen terminalde `neofetch` çıktısını kendine göre zenginleştir.

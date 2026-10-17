@@ -1,6 +1,7 @@
 /* ============================================================
-   yigiterf.github.io — v3: "pastel zine / low-level lab"
+   yigiterf.github.io — v3.1: pastel zine (sadeleştirilmiş tipografi)
    kağıt #f7f2e9 · mürekkep #241f1a · kırmızı #e2503f · pasteller
+   İki font ailesi: Space Grotesk (metin) + JetBrains Mono (etiket/kod)
    ============================================================ */
 :root {
   --paper: #f7f2e9;
@@ -10,6 +11,7 @@
   --ink-faint: #8a827a;
   --red: #e2503f;
   --red-deep: #c23d2e;
+  --red-dark: #963224;
 
   --mint: #d6f0e0;
   --lilac: #e7def8;
@@ -22,8 +24,7 @@
   --shadow: 3px 3px 0 var(--ink);
   --shadow-lg: 5px 5px 0 var(--ink);
 
-  --serif: 'Fraunces', Georgia, serif;
-  --sans: 'Space Grotesk', system-ui, sans-serif;
+  --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
 }
 
@@ -63,7 +64,6 @@ body {
 .container { max-width: 1140px; margin-inline: auto; padding-inline: 24px; }
 .mono { font-family: var(--mono); }
 .muted { color: var(--ink-faint); }
-.serif { font-family: var(--serif); }
 
 /* ---- header ---- */
 .site-header {
@@ -90,12 +90,14 @@ body {
   text-decoration: none;
   color: var(--ink);
   white-space: nowrap;
+  perspective: 200px;
 }
 .logo-mark {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
-  animation: spin 18s linear infinite;
+  animation: spinY 14s linear infinite;
+  transform-style: preserve-3d;
 }
 .logo-word {
   font-family: var(--mono);
@@ -137,27 +139,31 @@ body {
 .lang-toggle:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); }
 .lang-toggle:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
 
-/* ---- dönen üçgen ---- */
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* ---- 3B dönen üçgen (dikey eksende) ---- */
+@keyframes spinY {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
 }
 
 .triangle-deco {
   position: absolute;
-  top: 4%;
-  right: 2%;
-  width: clamp(90px, 11vw, 150px);
-  opacity: 0.95;
-  animation: spin 30s linear infinite;
+  top: -1%;
+  right: 1%;
+  width: clamp(90px, 11vw, 145px);
+  transform: rotate(-14deg);
+  perspective: 620px;
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
+}
+.triangle-deco .spin3d {
+  animation: spinY 13s linear infinite;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 16px 12px rgba(36, 31, 26, 0.22));
 }
 .triangle-deco svg { display: block; width: 100%; height: auto; }
 
 @media (prefers-reduced-motion: reduce) {
-  .logo-mark, .triangle-deco { animation: none; }
-  .ribbon-track { animation: none !important; }
+  .logo-mark, .triangle-deco .spin3d, .ribbon-track { animation: none !important; }
 }
 @media (max-width: 860px) {
   .triangle-deco { display: none; }
@@ -178,37 +184,26 @@ body {
   .hero-grid { grid-template-columns: 1fr; gap: 36px; }
 }
 
-.tag-line {
-  font-family: var(--mono);
-  font-size: 0.76rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-  margin: 0 0 18px;
-}
-.tag-line .no { background: var(--peach); border: 1.5px solid var(--ink); border-radius: 4px; padding: 1px 7px; color: var(--ink); }
-
 .hero-title {
-  font-family: var(--serif);
-  font-weight: 750;
-  font-size: clamp(3rem, 7.5vw, 5.4rem);
-  line-height: 0.98;
+  font-weight: 700;
+  font-size: clamp(3rem, 7.5vw, 5.2rem);
+  line-height: 1.02;
   letter-spacing: -0.03em;
   margin: 0;
 }
-.hero-title em {
-  display: block;
-  font-style: italic;
-  font-weight: 480;
-  font-size: 0.52em;
+
+.hero-sub {
+  font-family: var(--mono);
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
   color: var(--red-deep);
-  margin-top: 10px;
-  letter-spacing: -0.01em;
+  margin: 14px 0 0;
 }
+.hero-sub::after { content: ' _'; animation: blink 1.2s steps(2, start) infinite; }
 
 .hero-summary {
   color: var(--ink-soft);
   max-width: 56ch;
-  margin: 22px 0 0;
+  margin: 20px 0 0;
 }
 
 .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
@@ -252,7 +247,7 @@ body {
 .btn-primary { background: var(--red); color: #fff8f2; }
 .btn-primary:hover { background: var(--red-deep); }
 
-/* ---- spec kartı ---- */
+/* ---- künye kartı ---- */
 .spec-card {
   border: 1.5px solid var(--ink);
   border-radius: 12px;
@@ -284,7 +279,6 @@ body {
 .spec-list > div:last-child { border-bottom: 0; }
 .spec-list dt { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.07em; align-self: center; }
 .spec-list dd { margin: 0; font-weight: 600; }
-.spec-list .online::before { content: '● '; color: #1c7c54; }
 
 .spec-stats {
   display: grid;
@@ -297,17 +291,6 @@ body {
 .spec-stats > div:last-child { border-right: 0; }
 .spec-stats b { display: block; font-family: var(--mono); font-size: 1.3rem; }
 .spec-stats span { font-family: var(--mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); }
-
-.spec-foot {
-  display: block;
-  padding: 9px 14px;
-  border-top: 1.5px solid var(--ink);
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--ink-soft);
-  text-decoration: none;
-}
-.spec-foot:hover { background: var(--butter); color: var(--ink); }
 
 /* ---- kayan şerit ---- */
 .ribbon {
@@ -351,16 +334,15 @@ body {
   background: var(--mint);
 }
 .sec-head h2 {
-  font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(1.6rem, 3.6vw, 2.3rem);
+  font-size: clamp(1.6rem, 3.6vw, 2.2rem);
   letter-spacing: -0.02em;
   margin: 0;
 }
 .sec-head h2 .dot { color: var(--red); }
 .sec-head .rule { flex: 1; border-top: 1.5px dashed var(--line); }
 
-/* ---- proje figürleri ---- */
+/* ---- proje kartları ---- */
 .figs {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -410,9 +392,8 @@ body {
 
 .fig-body { display: flex; flex-direction: column; flex: 1; padding: 16px 16px 14px; }
 .fig-title {
-  font-family: var(--serif);
   font-weight: 700;
-  font-size: 1.3rem;
+  font-size: 1.12rem;
   letter-spacing: -0.01em;
   margin: 0 0 8px;
   overflow-wrap: anywhere;
@@ -513,37 +494,6 @@ body {
 .term-note { margin-top: 14px; font-family: var(--mono); font-size: 0.74rem; color: var(--ink-faint); }
 .term-note code { background: var(--butter); border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; }
 
-/* ---- logbook (zaman çizelgesi) ---- */
-.logbook { list-style: none; margin: 0; padding: 0; }
-.logbook > li {
-  display: grid;
-  grid-template-columns: 96px 1fr;
-  gap: 20px;
-  padding-block: 20px;
-  border-top: 1.5px dashed var(--line);
-}
-.logbook > li:first-child { border-top: 0; padding-top: 0; }
-@media (max-width: 640px) {
-  .logbook > li { grid-template-columns: 1fr; gap: 6px; }
-}
-
-.log-year {
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 600;
-  font-size: 1.45rem;
-  color: var(--red-deep);
-  letter-spacing: -0.01em;
-}
-.log-body h3 {
-  font-family: var(--mono);
-  font-size: 0.92rem;
-  font-weight: 600;
-  margin: 0 0 5px;
-}
-.log-body p { margin: 0; color: var(--ink-soft); font-size: 0.92rem; max-width: 70ch; }
-.log-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-
 /* ---- iletişim ---- */
 .contact-wrap {
   border: 1.5px solid var(--ink);
@@ -567,29 +517,16 @@ body {
   z-index: 0;
 }
 .contact-title {
-  font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(1.9rem, 5vw, 3.1rem);
-  line-height: 1.05;
+  font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+  line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0 0 10px;
   position: relative;
   z-index: 1;
 }
-.contact-title em { font-style: italic; font-weight: 480; color: var(--red-deep); }
 .contact-sub { color: var(--ink-soft); max-width: 52ch; position: relative; z-index: 1; }
 .contact-links { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 26px; position: relative; z-index: 1; }
-
-.mail-big {
-  font-family: var(--mono);
-  font-size: clamp(0.85rem, 2.4vw, 1.05rem);
-  color: var(--ink);
-  text-decoration: underline;
-  text-decoration-color: var(--red);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 6px;
-}
-.mail-big:hover { background: var(--butter); }
 
 /* ---- footer ---- */
 .site-footer {
@@ -605,6 +542,8 @@ body {
 .site-footer a { color: var(--red-deep); text-decoration: none; }
 .site-footer a:hover { text-decoration: underline; }
 .foot-tri { color: var(--red); font-size: 0.9rem; }
+
+@keyframes blink { to { visibility: hidden; } }
 
 /* scrollbar */
 ::-webkit-scrollbar { width: 11px; height: 11px; }

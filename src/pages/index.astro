@@ -3,84 +3,38 @@ import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { featured } from '../data/projects';
 
-// Logbook — repolardaki gerçek tarihlerden derlendi
-const timeline = [
-  {
-    year: '2019',
-    title: 'sistem başlatıldı: ilk commit',
-    titleEN: 'system init: first commit',
-    text: "GitHub'a katıldım — ilk dönem C/JS karışık denemeler, küçük oyun projeleri (RpsGame) ve algoritma çalışmaları.",
-    textEN: 'Joined GitHub — early C/JS experiments, small games (RpsGame) and algorithm practice.',
-    tags: ['C', 'algoritma', 'deneme'],
-    tagsEN: ['C', 'algorithms', 'practice'],
-  },
-  {
-    year: '2023',
-    title: 'web ve python katmanı',
-    titleEN: 'web & python layer',
-    text: 'To-Do-App, Word-Tracker, Flask-Blog ve kapsamlı Türkçe JavaScript notlarım. Uygulamalı öğrenme yılı.',
-    textEN: 'To-Do-App, Word-Tracker, Flask-Blog and extensive Turkish JavaScript notes. A hands-on learning year.',
-    tags: ['JavaScript', 'Python', 'Flask'],
-    tagsEN: ['JavaScript', 'Python', 'Flask'],
-  },
-  {
-    year: '2024',
-    title: 'StudyCount — ilk canlı ürün',
-    titleEN: 'StudyCount — first live product',
-    text: 'Ders çalışma takip uygulaması; canlı: study-count.vercel.app. Dağıtım, kullanım ve geri bildirim döngüsünü öğrendim.',
-    textEN: 'Study tracking app; live at study-count.vercel.app. Learned deploy, usage and feedback loops.',
-    tags: ['JavaScript', 'Vercel', 'ürün'],
-    tagsEN: ['JavaScript', 'Vercel', 'product'],
-  },
-  {
-    year: '2026',
-    title: 'robotik çekirdeğine geçiş',
-    titleEN: 'moving into the robotics core',
-    text: 'Cafe robotu simülasyonu ve robotik atölyesi — ROS/Gazebo ortamında modelleme; ardından İHA güdüm (PN) ve hassas iniş çalışmaları.',
-    textEN: 'Café robot simulation and robotics workshop — modeling in ROS/Gazebo; then UAV guidance (PN) and precision landing work.',
-    tags: ['ROS 2', 'Gazebo', 'İHA'],
-    tagsEN: ['ROS 2', 'Gazebo', 'UAV'],
-  },
-  {
-    year: '2026',
-    title: 'donanım katmanı: CHIP-8',
-    titleEN: 'hardware layer: CHIP-8',
-    text: "Hazır çerçeve yok — bellekten opcode'a, fetch-decode-execute döngüsünü sıfırdan C ile yazıyorum. Yanında ses sinyali işleme serüveni.",
-    textEN: 'No framework — writing the fetch-decode-execute loop from scratch in C. Alongside it, an audio DSP adventure.',
-    tags: ['C', 'emülatör', 'DSP'],
-    tagsEN: ['C', 'emulator', 'DSP'],
-  },
-];
-
 const ribbonItems = [
   'ROS 2', 'İHA güdüm', 'CHIP-8', 'C / C++', 'Python', 'gömülü sistemler',
-  'DSP', 'Gazebo', 'Linux', 'veri yapıları', 'sıfırdan derleme',
+  'sinyal işleme', 'Gazebo', 'Linux', 'kontrol teorisi', 'sıfırdan derleme',
 ];
 const ribbonItemsEN = [
   'ROS 2', 'UAV guidance', 'CHIP-8', 'C / C++', 'Python', 'embedded systems',
-  'DSP', 'Gazebo', 'Linux', 'data structures', 'build from scratch',
+  'signal processing', 'Gazebo', 'Linux', 'control theory', 'build from scratch',
 ];
 ---
 
 <Layout>
-  <!-- HERO: editöryel başlık + spec kartı + dönen üçgen -->
+  <!-- HERO -->
   <section class="hero">
     <div class="triangle-deco" aria-hidden="true">
-      <svg viewBox="0 0 100 100" role="img">
-        <polygon points="8,16 92,16 50,90" fill="#e2503f" stroke="#241f1a" stroke-width="3" stroke-linejoin="round" />
-      </svg>
+      <div class="spin3d">
+        <svg viewBox="0 0 106 106">
+          <!-- arka yüz: 3B derinlik hissi -->
+          <polygon points="16,24 100,24 58,98" fill="#963224" stroke="#241f1a" stroke-width="3" stroke-linejoin="round" />
+          <!-- ön yüz -->
+          <polygon points="8,16 92,16 50,90" fill="#e2503f" stroke="#241f1a" stroke-width="3" stroke-linejoin="round" />
+        </svg>
+      </div>
     </div>
 
     <div class="container hero-grid">
       <div class="hero-copy">
-        <p class="tag-line"><span class="no">dosya no. 001</span> — <span data-en="handmade portfolio / low-level log">el yapımı portfolyo / low-level kayıt</span></p>
-        <h1 class="hero-title">
-          yigiterf
-          <em data-en="builds low-level things and lets the metal talk.">düşük seviyeli işler kurar, metale konuşturur.</em>
-        </h1>
-        <p class="hero-summary" data-en="Robotics, embedded systems and simulation. From ROS 2 guidance runs to a from-scratch CHIP-8 emulator — I go below the abstractions until the metal replies.">
-          Robotik, gömülü sistemler ve simülasyon. ROS 2 güdüm koşularından sıfırdan
-          CHIP-8 emülatörüne — soyutlamaların altına, metal cevap verene kadar iniyorum.
+        <h1 class="hero-title">yigiterf</h1>
+        <p class="hero-sub" data-en="Robotics & embedded systems developer">Robotik & gömülü sistemler geliştiricisi</p>
+        <p class="hero-summary" data-en="I work on robotics, embedded systems and simulation. I develop ROS 2 guidance simulations, build a CHIP-8 emulator from scratch, and work on UAV autonomy.">
+          Robotik, gömülü sistemler ve simülasyon üzerine çalışıyorum. ROS 2 ile güdüm
+          simülasyonları geliştiriyor, sıfırdan CHIP-8 emülatörü yazıyor ve İHA otonomisi
+          üzerine çalışıyorum.
         </p>
         <div class="chip-row">
           <span class="chip mint">ROS 2</span>
@@ -91,28 +45,26 @@ const ribbonItemsEN = [
           <span class="chip mint">Gazebo</span>
         </div>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#projects" data-en="browse the figures ↘">figürlere bak ↘</a>
-          <a class="btn" href="#contact" data-en="say hi ✉">merhaba de ✉</a>
+          <a class="btn btn-primary" href="#projects" data-en="Browse projects">Projelere göz at</a>
+          <a class="btn" href="#contact" data-en="Contact me">İletişime geç</a>
         </div>
       </div>
 
       <aside class="spec-card" aria-label="Künye kartı">
         <div class="spec-stripe">
-          <span>SPECIMEN — YGT-2019</span>
-          <span data-en="est. github">github'lı yıllar</span>
+          <span>yigiterf — künye</span>
+          <span>since 2019</span>
         </div>
         <dl class="spec-list">
-          <div><dt data-en="status">durum</dt><dd class="online" data-en="online">çevrimiçi</dd></div>
           <div><dt data-en="focus">odak</dt><dd>ROS 2 · İHA · emülatör</dd></div>
-          <div><dt>stack</dt><dd>C · Python · JS</dd></div>
-          <div><dt data-en="method">yöntem</dt><dd data-en="build, break, understand">kur, kır, anla</dd></div>
+          <div><dt>stack</dt><dd>C · Python</dd></div>
+          <div><dt data-en="fields">alanlar</dt><dd data-en="robotics · embedded · DSP">robotik · gömülü · DSP</dd></div>
         </dl>
         <div class="spec-stats">
           <div><b id="stat-repos">…</b><span data-en="repos">repo</span></div>
           <div><b id="stat-followers">…</b><span data-en="followers">takipçi</span></div>
           <div><b id="stat-following">…</b><span data-en="following">takip</span></div>
         </div>
-        <a class="spec-foot" href="https://study-count.vercel.app" target="_blank" rel="noopener" data-en="footprint: study-count.vercel.app ↗">ayak izi: study-count.vercel.app ↗</a>
       </aside>
     </div>
   </section>
@@ -135,37 +87,20 @@ const ribbonItemsEN = [
     </div>
   </div>
 
-  <!-- PROJE FİGÜRLERİ -->
+  <!-- PROJELER -->
   <section class="section" id="projects">
     <div class="container">
       <div class="sec-head">
         <span class="sec-no">01</span>
-        <h2 data-en="projects & figures">projeler & figürler<span class="dot">.</span></h2>
+        <h2 data-en="Projects">Projeler<span class="dot">.</span></h2>
         <span class="rule"></span>
       </div>
       <div class="figs">
         {featured.map((p, i) => <ProjectCard project={p} index={i} />)}
       </div>
       <p class="see-all">
-        <a href="https://github.com/yigiterf?tab=repositories" target="_blank" rel="noopener" data-en="all figures on GitHub ↗">tüm figürler GitHub'da ↗</a>
+        <a href="https://github.com/yigiterf?tab=repositories" target="_blank" rel="noopener" data-en="All projects on GitHub ↗">GitHub'daki tüm projeler ↗</a>
       </p>
-    </div>
-  </section>
-
-  <!-- CANLI AKIŞ -->
-  <section class="section" id="live">
-    <div class="container">
-      <div class="sec-head">
-        <span class="sec-no" style="background:var(--lilac)">02</span>
-        <h2 data-en="live feed">canlı akış<span class="dot">.</span></h2>
-        <span class="rule"></span>
-      </div>
-      <p class="muted" style="margin-top:-18px;margin-bottom:26px;font-size:.88rem" data-en="surveilling recent repos — pulled live from the GitHub API">
-        son repoları izliyor — GitHub API'den canlı çekilir
-      </p>
-      <div class="figs" id="live-grid">
-        <p class="mono muted" style="font-size:.8rem">⌛ API'ye bağlanılıyor…</p>
-      </div>
     </div>
   </section>
 
@@ -173,15 +108,15 @@ const ribbonItemsEN = [
   <section class="section" id="terminal">
     <div class="container">
       <div class="sec-head">
-        <span class="sec-no" style="background:var(--sky)">03</span>
-        <h2 data-en="the console">konsol<span class="dot">.</span></h2>
+        <span class="sec-no" style="background:var(--sky)">02</span>
+        <h2 data-en="Console">Konsol<span class="dot">.</span></h2>
         <span class="rule"></span>
       </div>
       <div class="term-paper">
         <div class="term-bar">
           <span class="term-dots"><span></span><span></span><span></span></span>
-          <span class="term-title">yigiterf@github.io : bash — pastel build</span>
-          <span class="term-hint" data-en="try: help">şunu dene: help</span>
+          <span class="term-title">yigiterf@github.io : bash</span>
+          <span class="term-hint" data-en="tip: help">ipucu: help</span>
         </div>
         <div class="term-body" id="term-body">
           <div class="term-out" id="term-out"></div>
@@ -191,34 +126,26 @@ const ribbonItemsEN = [
           </div>
         </div>
       </div>
-      <p class="term-note" data-en="tip: run `help` — ArrowUp/Down for history, repo list, neofetch and more are waiting.">
-        ipucu: <code>help</code> yaz — ArrowUp/Down ile geçmiş, repo listesi, neofetch ve daha fazlası seni bekliyor.
+      <p class="term-note" data-en="Type `help` to list commands — ArrowUp/Down navigates history.">
+        Komutları listelemek için <code>help</code> yazın — ArrowUp/Down ile geçmişte gezinebilirsiniz.
       </p>
     </div>
   </section>
 
-  <!-- LOGBOOK -->
-  <section class="section" id="timeline">
+  <!-- SON REPOLAR (canlı) -->
+  <section class="section" id="live">
     <div class="container">
       <div class="sec-head">
-        <span class="sec-no" style="background:var(--peach)">04</span>
-        <h2 data-en="logbook — commit history">logbook — commit geçmişi<span class="dot">.</span></h2>
+        <span class="sec-no" style="background:var(--lilac)">03</span>
+        <h2 data-en="Recent Repos">Son Repolar<span class="dot">.</span></h2>
         <span class="rule"></span>
       </div>
-      <ol class="logbook">
-        {timeline.map((t) => (
-          <li>
-            <div class="log-year">{t.year}</div>
-            <div class="log-body">
-              <h3 data-en={t.titleEN}>{t.title}</h3>
-              <p data-en={t.textEN}>{t.text}</p>
-              <div class="log-tags">
-                {t.tags.map((tag, i) => <span class="chip" data-en={t.tagsEN[i]}>{tag}</span>)}
-              </div>
-            </div>
-          </li>
-        ))}
-      </ol>
+      <p class="muted" style="margin-top:-18px;margin-bottom:26px;font-size:.88rem" data-en="Listed automatically via the GitHub API.">
+        GitHub API üzerinden otomatik listelenir.
+      </p>
+      <div class="figs" id="live-grid">
+        <p class="mono muted" style="font-size:.8rem">⌛ yükleniyor…</p>
+      </div>
     </div>
   </section>
 
@@ -226,24 +153,20 @@ const ribbonItemsEN = [
   <section class="section" id="contact">
     <div class="container">
       <div class="sec-head">
-        <span class="sec-no" style="background:var(--pink)">05</span>
-        <h2 data-en="contact">iletişim<span class="dot">.</span></h2>
+        <span class="sec-no" style="background:var(--pink)">04</span>
+        <h2 data-en="Contact">İletişim<span class="dot">.</span></h2>
         <span class="rule"></span>
       </div>
       <div class="contact-wrap">
-        <h3 class="contact-title">
-          <span data-en="let's build">bir şey</span> <em data-en="something">kuralım</em><span data-en=".">?</span>
-        </h3>
-        <p class="contact-sub" data-en="A project, a collaboration, or a good old-fashioned low-level chat — the line is open.">
-          Bir proje, iş birliği ya da iyi bir low-level sohbeti — hat açık.
+        <h3 class="contact-title" data-en="Get in touch">Benimle iletişime geç</h3>
+        <p class="contact-sub" data-en="For projects, collaboration or any questions, feel free to reach out.">
+          Proje, iş birliği ya da sorularınız için bana ulaşabilirsiniz.
         </p>
         <div class="contact-links">
           <a class="btn btn-primary" href="https://github.com/yigiterf" target="_blank" rel="noopener">github.com/yigiterf ↗</a>
           <a class="btn" href="mailto:örnek@posta.com">örnek@posta.com ↗</a>
         </div>
-        <p class="term-note" style="margin-top:22px" data-en="(psst: replace the placeholder e-mail with your own — one line in index.astro)">
-          (not: yer tutucu e-postayı kendi adresinle değiştir — index.astro'da tek satır)
-        </p>
+        <!-- NOT: yukarıdaki mailto adresini kendi e-postanla değiştir -->
       </div>
     </div>
   </section>

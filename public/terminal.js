@@ -1,6 +1,6 @@
 // Canlı mini terminal — basit komut parser'ı.
 // Komutlar: help · whoami · ls · projects · skills · contact · github ·
-//           uptime · neofetch · date · uname · echo … · clear · sudo
+//           uptime · neofetch · date · uname · echo … · clear
 (function () {
   const input = document.getElementById('term-in');
   const out = document.getElementById('term-out');
@@ -15,48 +15,47 @@
 
   const CMDS = {
     help: [
-      ['dahili komutlar:', 'l-warn'],
-      ['  help              bu liste', 'l-dim'],
-      ['  whoami            kim benim', 'l-dim'],
+      ['kullanılabilir komutlar:', 'l-warn'],
+      ['  help              bu listeyi gösterir', 'l-dim'],
+      ['  whoami            kısa tanıtım', 'l-dim'],
       ['  ls                dizinleri listeler', 'l-dim'],
-      ['  projects          öne çıkan modüller', 'l-dim'],
-      ['  skills            teknoloji yığını', 'l-dim'],
-      ['  contact           iletişim hatları', 'l-dim'],
-      ['  github            profili açar', 'l-dim'],
-      ['  uptime            GitHub mesajız ( gün)', 'l-dim'],
+      ['  projects          öne çıkan projeler', 'l-dim'],
+      ['  skills            kullandığım teknolojiler', 'l-dim'],
+      ['  contact           iletişim bilgileri', 'l-dim'],
+      ['  github            GitHub profilimi açar', 'l-dim'],
+      ['  uptime            GitHub geçmişim', 'l-dim'],
       ['  neofetch          sistem kartı', 'l-dim'],
       ['  uname             çekirdek bilgisi', 'l-dim'],
-      ['  echo <msg>        ekrana yazar', 'l-dim'],
+      ['  echo <metin>      ekrana yazar', 'l-dim'],
       ['  clear             ekranı temizler', 'l-dim'],
-      ['  sudo rm -rf /     ...dene gör :)', 'l-dim'],
     ],
-    whoami: [['yigiterf — robotik & gömülü sistemler geliştiricisi. C · Python · ROS 2', 'l-ok']],
-    ls: [['projects/   skills/   contact/   forum/', 'l-dim'], ['(komutları deneyin: projects, skills, contact)', 'l-dim']],
+    whoami: [['yigiterf — robotik ve gömülü sistemler geliştiricisi. C · Python · ROS 2', 'l-ok']],
+    ls: [['projects/   skills/   contact/', 'l-dim'], ['(deneyin: projects, skills, contact)', 'l-dim']],
     skills: [
-      ['çekirdek:', 'l-warn'],
-      ['  C, C++, Python — sıfırdan derleme sever', 'l-dim'],
-      ['ağ & simülasyon:', 'l-warn'],
-      ['  ROS 2, Gazebo, İHA güdüm (PN), PID', 'l-dim'],
+      ['diller:', 'l-warn'],
+      ['  C, C++, Python', 'l-dim'],
+      ['robotik:', 'l-warn'],
+      ['  ROS 2, Gazebo, İHA güdüm (PN), PID kontrol', 'l-dim'],
       ['araçlar:', 'l-warn'],
-      ['  Linux, Git, Make, CMake, Docker, JS (web yan işi)', 'l-dim'],
+      ['  Linux, Git, Make, CMake', 'l-dim'],
     ],
     projects: () => {
-      const lines = [['ÖNE ÇIKAN MODÜLLER:', 'l-warn']];
+      const lines = [['öne çıkan projeler:', 'l-warn']];
       featured.forEach((name, i) => {
-        lines.push([`  MOD-${String(i + 1).padStart(2, '0')}   ${name}`, 'l-dim']);
+        lines.push([`  ${String(i + 1).padStart(2, '0')}  ${name}`, 'l-dim']);
       });
-      lines.push(['↓ kartları aşağıda görebilirsiniz — scroll', 'l-dim']);
+      lines.push(['kartlarını yukarıdaki Projeler bölümünde görebilirsiniz', 'l-dim']);
       return lines;
     },
     contact: [
       ['github → https://github.com/yigiterf', 'l-ok'],
-      ['mail   → örnek@posta.com  (aşağıda İletişim bölümü)', 'l-warn'],
+      ['mail   → örnek@posta.com (aşağıdaki İletişim bölümü)', 'l-warn'],
     ],
     github: () => {
       window.open('https://github.com/yigiterf', '_blank', 'noopener');
-      return [['yeni sekme açıldı: https://github.com/yigiterf', 'l-ok']];
+      return [['yeni sekmede açılıyor: https://github.com/yigiterf', 'l-ok']];
     },
-    uptime: () => [[`up ${UPTIME_DAYS} day, ${hh}:${mm} — 0 kernel panic`, 'l-ok']],
+    uptime: () => [[`GitHub'a katılalı ${UPTIME_DAYS} gün oldu — hâlâ derliyor`, 'l-ok']],
     date: [[new Date().toString(), 'l-dim']],
     uname: [['LowLevelOS 6.9-generic #1 SMP PREEMPT_DYNAMIC x86_64', 'l-ok']],
     neofetch: () => {
@@ -73,13 +72,12 @@
         'OS:      LowLevelOS 6.9 (arch btw)',
         'Kernel:  robotik-kernel-6.9',
         'Uptime:  ' + UPTIME_DAYS + ' days',
-        'Shell:   bash — low-level mode',
-        'Stack:   C · Python · ROS 2 · JS',
-        'Topics:  PID · PN güdüm · CHIP-8',
+        'Shell:   bash',
+        'Stack:   C · Python · ROS 2',
+        'Topics:  PID · PN güdüm · CHIP-8 · DSP',
       ];
       return info.map((line, i) => [i < art.length ? art[i] + '  ' + line : ''.padEnd(15) + line, 'banner']);
     },
-    sudo: [['sudo:  burada izinler kısıtlı — nice try :)', 'l-err']],
   };
   CMDS.stack = CMDS.skills;
 
@@ -117,17 +115,17 @@
       const res = CMDS[name];
       printOut(typeof res === 'function' ? res() : res);
     } else {
-      printOut([[`bash: ${name}: command not found — 'help' yazın`, 'l-err']]);
+      printOut([[`bash: ${name}: komut bulunamadı — 'help' yazın`, 'l-err']]);
     }
   }
 
-  // Boot (MOTD)
+  // Açılış mesajları
   printOut([
-    ['[  ok  ] boot: low-level kernel derlendi', 'l-ok'],
-    ['[  ok  ] mount: /dev/robotik — ROS 2 · İHA bağlandı', 'l-ok'],
-    ['[  ok  ] ops: C, C++, Python yuklendi — -O3', 'l-ok'],
-    [`[  ok  ] session: yigiterf@github.io — ${hh}:${mm}`, 'l-dim'],
-    [`tip: 'help' yaz ve Enter'a bas — komutlar listelenir`, 'l-warn'],
+    ['[  ok  ] sistem başlatıldı — pastel build', 'l-ok'],
+    ['[  ok  ] ROS 2 ve İHA modülleri yüklendi', 'l-ok'],
+    ['[  ok  ] derleyiciler hazır: C · C++ · Python', 'l-ok'],
+    [`[  ok  ] oturum: yigiterf@github.io — ${hh}:${mm}`, 'l-dim'],
+    ["kullanılabilir komutlar için 'help' yazıp Enter'a basın", 'l-warn'],
   ]);
 
   body.addEventListener('click', () => input.focus());

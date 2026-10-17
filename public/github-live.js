@@ -14,6 +14,10 @@
   const featured = new Set((window.FEATURED_TITLES ?? []).map((t) => t.toLowerCase()));
   const isEN = (localStorage.getItem('lang') ?? 'tr') === 'en';
 
+  // Web/JS projeleri bu portfolyoda listelenmez
+  const EXCLUDED_LANGS = new Set(['JavaScript', 'TypeScript', 'HTML', 'CSS']);
+  const EXCLUDED_REPOS = new Set(['flask-blog']);
+
   let repos = [];
   try {
     const res = await fetch('https://api.github.com/users/yigiterf/repos?per_page=100&sort=updated', {
@@ -27,7 +31,10 @@
   }
 
   const items = repos
-    .filter((r) => !r.fork && !featured.has(r.name.toLowerCase()))
+    .filter((r) => !r.fork)
+    .filter((r) => !featured.has(r.name.toLowerCase()))
+    .filter((r) => !EXCLUDED_REPOS.has(r.name.toLowerCase()))
+    .filter((r) => !EXCLUDED_LANGS.has(r.language))
     .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
     .slice(0, 6);
 
@@ -41,7 +48,7 @@
     const plate = document.createElement('header');
     plate.className = 'fig-plate';
     const left = document.createElement('span');
-    left.textContent = '◆ ' + (isEN ? 'live' : 'canlı');
+    left.textContent = '◆ GitHub';
     const right = document.createElement('span');
     right.className = 'fig-lang';
     right.textContent = r.updated_at.slice(0, 7);

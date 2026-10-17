@@ -13,12 +13,12 @@ const LANG_COLORS: Record<string, string> = {
   Shell: '#5da271', Makefile: '#7a8b3c',
 };
 const langColor = LANG_COLORS[language] ?? '#8a827a';
-const figNo = String(index + 1).padStart(2, '0');
+const no = String(index + 1).padStart(2, '0');
 ---
 
 <article class="fig">
   <header class="fig-plate">
-    <span>Fig. {figNo}</span>
+    <span>{no}</span>
     <span class="fig-lang">
       <span class="lang-sq" style={`background:${langColor}`}></span>{language ?? 'n/a'}
     </span>
