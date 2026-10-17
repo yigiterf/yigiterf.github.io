@@ -10,9 +10,9 @@ export interface Props {
 }
 
 const {
-  title = 'yigiterf — robotics & embedded / low-level',
+  title = 'yigiterf — düşük seviyeli bir portfolyo',
   description =
-    'Yigiter — robotics, ROS 2, embedded systems, CHIP-8 emulator. Portfolio in a bento-grid terminal aesthetic.',
+    'Robotik, gömülü sistemler, ROS 2 ve CHIP-8 emülatörü. Pastel, el yapımı bir low-level portfolyo.',
 } = Astro.props;
 const featuredTitles = featured.map((p) => p.title);
 ---
@@ -27,13 +27,13 @@ const featuredTitles = featured.map((p) => p.title);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="light" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap"
     />
     <title>{title}</title>
   </head>
@@ -45,7 +45,6 @@ const featuredTitles = featured.map((p) => p.title);
     </main>
     <Footer />
     <script src="/lang.js" defer></script>
-    <script src="/rotate.js" defer></script>
     <script src="/github-stats.js" defer></script>
     <script is:inline define:vars={{ featuredTitles }}>window.FEATURED_TITLES = featuredTitles;</script>
     <script src="/github-live.js" defer></script>

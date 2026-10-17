@@ -6,20 +6,22 @@ canlı GitHub verisi içerir.
 
 ## Özellikler
 
-- **Bento-grid düzen** — asimetrik hücreler: kimlik + canlı terminal + GitHub
-  istatistikleri + durum kartı. Köşelerde teknik `+` işaretleri.
-- **Canlı çalışan terminal** — sağ üstte komut parse eden mini bash:
-  `help`, `whoami`, `ls`, `projects`, `skills`, `neofetch`, `uptime`,
-  `sudo`… (ArrowUp/Down ile geçmiş) — `public/terminal.js`.
+- **Pastel zine estetiği** — fildişi kağıt zemin, kalın mürekkep kenarlıklar,
+  sert gölgeler, Fraunces serif başlıklar + JetBrains Mono etiketler.
+- **Dönen kırmızı ters üçgen** — hem logonun kendisi hem de hero'da büyük
+  bir süs olarak yavaşça kendi ekseninde döner (`prefers-reduced-motion`'da durur).
+- **Canlı çalışan konsol** — `help`, `whoami`, `ls`, `projects`, `skills`,
+  `neofetch`, `uptime`, `sudo`… ArrowUp/Down ile komut geçmişi
+  (`public/terminal.js`).
+- **Proje figürleri** — `Fig. 01…` başlıklı, pastel plakalı kartlar; tech-stack
+  etiketleri pill chip'ler. Kartlar hafif eğik durur, hover'da düzelir.
+- **Kayan şerit** — ROS 2 ◆ İHA güdüm ◆ CHIP-8 … marquee animasyonu.
+- **Logbook** — commit geçmişi estetiğinde, yıl italik serif başlıklı
+  zaman çizelgesi.
 - **TR / EN geçişi** — sağ üstteki buton; tercih `localStorage`'da saklanır.
-- **Proje Modülleri** — `MOD-01…` etiketli kartlar; tech-stack etiketleri
-  hex kodlu (ASCII baytırı): `0x50 59 → Python`.
-- **Deneyim zaman çizelgesi** — commit geçmişi estetiğinde yıl düğümleri.
-- **Canlı GitHub verisi** — istatistikler ve "Canlı Akış" GitHub API'den
-  çalışma anında çekilir; yeni repo açtığında (fork olmayan, açıklaması
-  dolu tabii ki daha şık) sitede otomatik belirir.
-- **Teknik ızgara** — 1px dakika/saat çizgili arka plan; `Inter` gövde +
-  `JetBrains Mono` başlık/kod.
+- **Canlı GitHub verisi** — künye kartındaki istatistikler ve "canlı akış"
+  figürleri GitHub API'den çalışma anında çekilir; yeni repo açtığında
+  sitede otomatik belirir.
 
 ## Geliştirme
 

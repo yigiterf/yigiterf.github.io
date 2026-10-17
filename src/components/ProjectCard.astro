@@ -6,43 +6,34 @@ interface Props {
 const { project, index = 0 } = Astro.props;
 const { title, url, language, tags, desc, date } = project;
 
-// Etiketleri hex kodlu göster: ilk iki ASCII baytı hex olarak öne yazar
-function hexTag(label: string): string {
-  const bytes = [...label.slice(0, 2)].map((c) => c.charCodeAt(0).toString(16).padStart(2, '0').toUpperCase());
-  return '0x' + bytes.join('');
-}
-const modNo = String(index + 1).padStart(2, '0');
-const langHex = hexTag(language || 'n/a');
-
-// GitHub dil renkleri (dot için)
+// GitHub dil renkleri
 const LANG_COLORS: Record<string, string> = {
-  C: '#94a3b8', 'C++': '#f87171', 'C#': '#a3e635', Python: '#60a5fa',
-  JavaScript: '#fbbf24', TypeScript: '#60a5fa', HTML: '#fb923c',
-  CSS: '#c084fc', CMake: '#f87171', Shell: '#4ade80', Makefile: '#84cc16',
-  Rust: '#dea584', Go: '#00add8', Java: '#b07219',
+  C: '#8a827a', 'C++': '#e2503f', Python: '#4f7ca8', JavaScript: '#d9b23c',
+  TypeScript: '#4f7ca8', HTML: '#d97742', CSS: '#9b7fc4', CMake: '#c23d2e',
+  Shell: '#5da271', Makefile: '#7a8b3c',
 };
-const langColor = LANG_COLORS[language] ?? '#94a3b8';
+const langColor = LANG_COLORS[language] ?? '#8a827a';
+const figNo = String(index + 1).padStart(2, '0');
 ---
 
-<article class="card">
-  <div class="card-top">
-    <span class="mod-id">MOD-{modNo}</span>
-    <span class="card-lang"><span class="lang-dot" style={`background:${langColor};box-shadow:0 0 7px ${langColor}66`}></span>{langHex}·{language ?? 'n/a'}</span>
-  </div>
-  <h3><a href={url} target="_blank" rel="noopener">{title}</a></h3>
-  <p class="card-desc" data-tr={desc.tr} data-en={desc.en}>
-    {desc.tr}
-  </p>
-  <div class="card-tags">
-    {tags.tr.map((tag, i) => (
-      <span class="hex-tag">
-        <span class="hx">[{hexTag(tags.en[i] ?? tag)}]</span>{' '}
-        <span data-tr={tag} data-en={tags.en[i]}>{tag}</span>
-      </span>
-    ))}
-  </div>
-  <div class="card-foot" style="display:flex;gap:12px;align-items:center">
-    <a class="card-link" href={url} target="_blank" rel="noopener" aria-label={title}>insmod →</a>
-    <span class="card-date">{date?.slice(0, 7)}</span>
+<article class="fig">
+  <header class="fig-plate">
+    <span>Fig. {figNo}</span>
+    <span class="fig-lang">
+      <span class="lang-sq" style={`background:${langColor}`}></span>{language ?? 'n/a'}
+    </span>
+  </header>
+  <div class="fig-body">
+    <h3 class="fig-title"><a href={url} target="_blank" rel="noopener">{title}</a></h3>
+    <p class="fig-desc" data-tr={desc.tr} data-en={desc.en}>{desc.tr}</p>
+    <ul class="fig-tags">
+      {tags.tr.map((tag, i) => (
+        <li class="chip" data-tr={tag} data-en={tags.en[i]}>{tag}</li>
+      ))}
+    </ul>
+    <footer class="fig-foot">
+      <a class="fig-link" href={url} target="_blank" rel="noopener" aria-label={title} data-en="open ↗">aç ↗</a>
+      <span class="fig-date">{date?.slice(0, 7)}</span>
+    </footer>
   </div>
 </article>
