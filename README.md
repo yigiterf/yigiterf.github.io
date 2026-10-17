@@ -38,85 +38,62 @@ npm run build    # dist/ üretir
 npm run preview  # dist/ önizlemesi
 ```
 
-## Dağıtım (GitHub Pages) — adım adım
+## Dağıtım (GitHub Pages)
 
-Site statik olarak derlenir ve GitHub Actions ile yayınlanır
-(`.github/workflows/deploy.yml`).
+Yayın adresi: **https://yigiterf.github.io**
 
-### 1. GitHub'da repo oluştur
+Düzen şöyle:
 
-- https://github.com/new adresine git.
-- **Repository name:** `yigiterf.github.io` (kullanıcı sitesi yalnızca bu
-  isimle kök adreste yayınlanır — birebir bu isim olmalı).
-- **Public** seç (ücretsiz Pages için şart).
-- **README/gitignore/lisans ekleme** — repo zaten yerelde hazır.
+- **`main` dalı** → kaynak kod (bu repo).
+- **`gh-pages` dalı** → derlenmiş statik site. GitHub Pages bu dalı yayınlıyor
+  (Settings → Pages → *Deploy from a branch* → `gh-pages` / root).
+- Derleme çıktısı (`dist/`) git'e girmez (`.gitignore`'da); `gh-pages` dalına
+  yalnızca yayınlanacak dosyalar gider. Jekyll'in `_astro/` klasörünü yok
+  saymaması için dala `.nojekyll` dosyası eklenir.
 
-### 2. Kimlik doğrulama kurulumu (bir kez)
-
-**A) SSH anahtarı (önerilen)**
-
-```bash
-ssh-keygen -t ed25519 -C "beteljesed@gmail.com"
-cat ~/.ssh/id_ed25519.pub
-```
-
-Çıkan anahtarı GitHub → Settings → SSH and GPG keys → **New SSH key**
-bölümüne ekle. Test:
-
-```bash
-ssh -T git@github.com   # "Hi yigiterf!" mesajı görmelisin
-```
-
-**B) HTTPS + Personal Access Token** (SSH kullanmak istemezsen)
-
-GitHub → Settings → Developer settings → Personal access tokens →
-Tokens (classic) → Generate new token (classic) → yetkiler: `repo` **ve**
-`workflow` (workflow dosyası push'ladığın için şart). Şifre sorulduğunda
-token'ı yapıştır.
-
-### 3. Remote ekle ve push'la
+### Güncelleme akışı
 
 ```bash
 cd ~/portfolio
-git remote add origin git@github.com:yigiterf/yigiterf.github.io.git
-git push -u origin main
+npm run dev                                          # önizleme: localhost:4321
+# … içeriği düzenle …
+
+git add -A && git commit -m "açıklama" && git push    # kaynak kod GitHub'a
+./deploy.sh "açıklama"                               # siteyi derle ve yayınla
 ```
 
-### 4. Pages'i aç
+`./deploy.sh` şunları yapar: `npm run build` → `dist/` içeriğini geçici bir
+repoya kopyalar → `.nojekyll` ekler → `gh-pages` dalına push eder.
+Yayın ~1 dakika içinde görünür. **Yeni repo açtığında hiçbir şey yapmana gerek
+yok:** "Son Repolar" bölümü veriyi GitHub API'den çalışma anında çeker.
 
-Repo → **Settings** → **Pages** → *Build and deployment* → **Source:
-GitHub Actions**.
+### GitHub Actions akışına geçmek istersen (isteğe bağlı)
 
-### 5. İlk yayını izle
+Şu an otomatik derleme kapalı; sebebi: bu makinedeki kayıtlı git token'ında
+`workflow` yetkisi yok ve GitHub, içinde workflow dosyası bulunan push'ları bu
+token'la reddediyor. Üç adımda tam otomatik akışa geçebilirsin (sonrasında
+`git push` tek başına yeterli olur, `./deploy.sh` gerekmez):
 
-- Repo → **Actions** → "Deploy to GitHub Pages" işi yeşil tik almalı
-  (~1-2 dakika). Elle çalıştırmak için **Run workflow**.
-- Bitince https://yigiterf.github.io adresini aç (önbellek varsa
-  Ctrl+Shift+R ile yenile).
+1. GitHub arayüzünde: **Add file → Create new file** → dosya adı
+   `.github/workflows/deploy.yml` → içeriği `docs/github-actions-deploy.yml`
+   dosyasından kopyala-yapıştır → **Commit**.
+2. Repo → **Settings → Pages → Source: GitHub Actions**.
+3. Bir sonraki `git push` işi tetikler; sonucu **Actions** sekmesinden izle.
 
-### 6. Sonraki güncellemeler
-
-```bash
-cd ~/portfolio
-# içeriği düzenle, önizle: npm run dev
-git add -A
-git commit -m "açıklama"
-git push
-```
-
-Her push otomatik olarak derleyip yayınlar. **Yeni repo açtığında hiçbir şey
-yapmana gerek yok:** "Son Repolar" bölümü GitHub API'den çalışma anında
-listelenir.
+> Alternatif: `workflow` yetkili yeni bir token ya da çalışan bir SSH anahtarı
+> ile aynı dosyayı doğrudan push edebilirsin.
 
 ### Sorun giderme
 
 | Belirti | Çözüm |
 | --- | --- |
-| Actions `npm ci` adımında hata | `npm install` çalıştırıp `package-lock.json`'ı commit'le |
-| Adres 404 | Pages → Source = GitHub Actions mı? Repo adı birebir `yigiterf.github.io` mu? |
-| CSS/JS yüklenmiyor | Repo adı farklıysa `astro.config.mjs`'e `base: '/repo-adi'` ekle ve `site` değerini güncelle |
-| Eski içerik görünüyor | Tarayıcı önbelleği: Ctrl+Shift+R |
-| Özel alan adı | Pages → Custom domain + DNS `CNAME` kaydı, ayrıca `public/CNAME` dosyası |
+| Sitede README görünüyor | Pages → Source `gh-pages` / root olmalı; `./deploy.sh` çalıştır |
+| CSS/JS yüklenmiyor | `gh-pages` dalında `.nojekyll` var mı? (`deploy.sh` ekler) |
+| `refusing to allow ... workflow` hatası | Token'da `workflow` yetkisi yok; dosyayı web arayüzünden ekle |
+| Eski içerik görünüyor | Ctrl+Shift+R; yayın ~1 dk gecikebilir |
+| Adres 404 | Repo adı birebir `yigiterf.github.io` olmalı |
+| Repo adı farklı | `astro.config.mjs` → `site` ve `base: '/repo-adi'` güncelle |
+| Özel alan adı | Pages → Custom domain + DNS `CNAME` kaydı, ayrıca `public/CNAME` |
 
 ## Yeni proje eklemek / siteyi güncellemek
 
@@ -129,6 +106,7 @@ listelenir.
   `data-en="..."` ve `data-ja="..."` özniteliklerine diğer dilleri ekle.
 - **Terminal:** `public/terminal.js` içindeki komutlar ve çıktılar.
 - **Renkler / tema:** `src/styles/global.css` içindeki `:root` değişkenleri.
+- **Yayına almak:** `git push` (kaynak) + `./deploy.sh` (site).
 
 ## Yapılacaklar (senin doldurman gerekenler)
 
