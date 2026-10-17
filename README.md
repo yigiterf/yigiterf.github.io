@@ -63,7 +63,9 @@ git add -A && git commit -m "açıklama" && git push    # kaynak kod GitHub'a
 ```
 
 `./deploy.sh` şunları yapar: `npm run build` → `dist/` içeriğini geçici bir
-repoya kopyalar → `.nojekyll` ekler → `gh-pages` dalına push eder.
+repoya kopyalar → `.nojekyll` ekler → `gh-pages` dalına push eder → sitenin
+canlı olduğunu doğrular (HTTP 200 + başlık kontrolü). Bir sorun görürse
+`./pages-onar.sh` çalıştırmanı önerir.
 Yayın ~1 dakika içinde görünür. **Yeni repo açtığında hiçbir şey yapmana gerek
 yok:** "Son Repolar" bölümü veriyi GitHub API'den çalışma anında çeker.
 
@@ -88,6 +90,7 @@ token'la reddediyor. Üç adımda tam otomatik akışa geçebilirsin (sonrasınd
 | Belirti | Çözüm |
 | --- | --- |
 | Sitede README görünüyor | Pages → Source `gh-pages` / root olmalı; `./deploy.sh` çalıştır |
+| `There isn't a GitHub Pages site here` (404) | Pages sitesi kapatılmış: `./pages-onar.sh` (yeniden oluşturur + derlemeyi tetikler) |
 | CSS/JS yüklenmiyor | `gh-pages` dalında `.nojekyll` var mı? (`deploy.sh` ekler) |
 | `refusing to allow ... workflow` hatası | Token'da `workflow` yetkisi yok; dosyayı web arayüzünden ekle |
 | Eski içerik görünüyor | Ctrl+Shift+R; yayın ~1 dk gecikebilir |
