@@ -111,6 +111,30 @@ token'la reddediyor. Üç adımda tam otomatik akışa geçebilirsin (sonrasınd
 - **Renkler / tema:** `src/styles/global.css` içindeki `:root` değişkenleri.
 - **Yayına almak:** `git push` (kaynak) + `./deploy.sh` (site).
 
+## SEO
+
+Sitede kurulu olan teknik SEO katmanı (`src/layouts/Layout.astro`):
+
+- `<title>` + açıklama, `canonical`, `robots`, `author`, `theme-color`.
+- Open Graph + Twitter kartı — paylaşım görseli: `public/og.jpg` (1200×630).
+- JSON-LD yapılandırılmış veri: `ProfilePage` + `Person` + `WebSite` + `ItemList` (projeler).
+- `public/robots.txt` ve `public/sitemap.xml`.
+- Fontlar kendi sunucumuzdan servis edilir (`@fontsource`), CDN bağımlılığı yok;
+  kritik fontlar `preload` edilir → Lighthouse: Performans 99 / SEO 100 / A11y 100 / BP 100.
+
+**Google'a "Ferhat Yiğiter" bildirmek (elle yapılacak, 5 dk):**
+
+1. [Google Search Console](https://search.google.com/search-console) → mülk ekle:
+   `https://yigiterf.github.io`.
+2. Doğrulama önerisi: **HTML dosyası** yöntemi — verilen `googleXXXX.html` dosyasını
+   `public/` içine bırak, `./deploy.sh` ile yayınla, doğrulayı tıkla.
+   (Alternatif: GSC'nin verdiği `<meta>` etiketini Layout.astro `<head>`'ine ekle.)
+3. Doğrulandıktan sonra **Sitemaps** → `sitemap.xml` gönder.
+4. Hız için: GSC'de **URL denetimi** → `https://yigiterf.github.io/` → "Dizine eklemeyi iste".
+
+Ayrıca GitHub profiline site adresini (yigiterf.github.io) ekle; "Ferhat Yiğiter"
+aramasında en güçlü geri bağlantı budur.
+
 ## Yapılacaklar (senin doldurman gerekenler)
 
 - [x] İletişim e-postası ayarlandı: `ferhatyigiter.mail@gmail.com`

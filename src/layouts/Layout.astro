@@ -1,5 +1,28 @@
 ---
 import '../styles/global.css';
+// Fontlar kendi sunucumuzdan servis ediliyor (CDN bağımlılığı yok).
+// Yalnızca kullanılan subset'ler (latin + latin-ext — Türkçe karakterler latin-ext'tedir).
+import '@fontsource/space-grotesk/latin-400.css';
+import '@fontsource/space-grotesk/latin-ext-400.css';
+import '@fontsource/space-grotesk/latin-500.css';
+import '@fontsource/space-grotesk/latin-ext-500.css';
+import '@fontsource/space-grotesk/latin-600.css';
+import '@fontsource/space-grotesk/latin-ext-600.css';
+import '@fontsource/space-grotesk/latin-700.css';
+import '@fontsource/space-grotesk/latin-ext-700.css';
+import '@fontsource/jetbrains-mono/latin-400.css';
+import '@fontsource/jetbrains-mono/latin-ext-400.css';
+import '@fontsource/jetbrains-mono/latin-600.css';
+import '@fontsource/jetbrains-mono/latin-ext-600.css';
+// İlk ekranda kullanılan font dosyaları (preload için):
+import sgL400 from '@fontsource/space-grotesk/files/space-grotesk-latin-400-normal.woff2';
+import sgX400 from '@fontsource/space-grotesk/files/space-grotesk-latin-ext-400-normal.woff2';
+import sgL700 from '@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2';
+import sgX700 from '@fontsource/space-grotesk/files/space-grotesk-latin-ext-700-normal.woff2';
+import jmL400 from '@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2';
+import jmX400 from '@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-400-normal.woff2';
+import jmL600 from '@fontsource/jetbrains-mono/files/jetbrains-mono-latin-600-normal.woff2';
+import jmX600 from '@fontsource/jetbrains-mono/files/jetbrains-mono-latin-ext-600-normal.woff2';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { featured } from '../data/projects';
@@ -9,12 +32,82 @@ export interface Props {
   description?: string;
 }
 
+const SITE_URL = 'https://yigiterf.github.io';
 const {
   title = 'Ferhat Yiğiter',
   description =
-    'Robotik, gömülü sistemler, ROS 2 ve CHIP-8 emülatörü. Pastel, el yapımı bir low-level portfolyo.',
+    'Ferhat Yiğiter (yigiterf) — robotik ve gömülü sistemler geliştiricisi. ROS 2 güdüm simülasyonları, İHA otonomisi, sinyal işleme (DSP) ve sıfırdan yazılmış bir CHIP-8 emülatörü.',
 } = Astro.props;
+const ogImage = `${SITE_URL}/og.jpg`;
+const ogAlt = 'Ferhat Yiğiter — robotik ve gömülü sistemler geliştiricisi';
 const featuredTitles = featured.map((p) => p.title);
+
+const personId = `${SITE_URL}/#person`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfilePage',
+      '@id': `${SITE_URL}/#webpage`,
+      url: `${SITE_URL}/`,
+      name: title,
+      description,
+      inLanguage: 'tr',
+      isPartOf: { '@id': `${SITE_URL}/#website` },
+      mainEntity: { '@id': personId },
+      image: { '@id': ogImage },
+    },
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: 'Ferhat Yiğiter',
+      alternateName: ['yigiterf', 'fyigiter'],
+      url: `${SITE_URL}/`,
+      image: ogImage,
+      sameAs: ['https://github.com/yigiterf'],
+      jobTitle: 'Robotik ve Gömülü Sistemler Geliştiricisi',
+      description,
+      knowsAbout: [
+        'ROS 2',
+        'İHA (UAV) güdüm sistemleri',
+        'Gömülü sistemler',
+        'C',
+        'C++',
+        'Python',
+        'CHIP-8 emülatörü',
+        'Sinyal işleme (DSP)',
+        'Gazebo',
+        'PID kontrol',
+        'Linux',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
+      name: title,
+      inLanguage: 'tr',
+      publisher: { '@id': personId },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${SITE_URL}/#projects`,
+      name: 'Öne çıkan projeler',
+      itemListElement: featured.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'SoftwareSourceCode',
+          name: p.title,
+          url: p.url,
+          codeRepository: p.url,
+          programmingLanguage: p.language,
+          author: { '@id': personId },
+        },
+      })),
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -24,17 +117,48 @@ const featuredTitles = featured.map((p) => p.title);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="Ferhat Yiğiter" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#f7f2e9" />
+
+    <link rel="canonical" href={`${SITE_URL}/`} />
+    <link rel="sitemap" href={`${SITE_URL}/sitemap.xml`} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://api.github.com" crossorigin />
+
+    <!-- Kritik yazı tiplerini yüksek öncelikle yükle (layout kaymasını önler) -->
+    <link rel="preload" as="font" type="font/woff2" href={sgL400} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={sgX400} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={sgL700} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={sgX700} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={jmL400} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={jmX400} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={jmL600} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={jmX600} crossorigin />
+
+<!-- Open Graph (Facebook, LinkedIn, WhatsApp…) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`${SITE_URL}/`} />
+    <meta property="og:site_name" content="Ferhat Yiğiter" />
+    <meta property="og:locale" content="tr_TR" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta name="color-scheme" content="light" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-    />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content={ogAlt} />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Yapılandırılmış veri (Schema.org) -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+
     <title>{title}</title>
   </head>
   <body>
