@@ -143,3 +143,7 @@ aramasında en güçlü geri bağlantı budur.
 - [x] İletişim e-postası ayarlandı: `ferhatyigiter.mail@gmail.com`
       (`src/pages/index.astro` ve `public/terminal.js`).
 - [ ] İstersen terminalde `neofetch` çıktısını kendine göre zenginleştir.
+
+## Arama motoru bildirimleri
+
+- IndexNow anahtarı: `c9a1d772c6044426bca65dc5f9d596be` (dosya: `public/c9a1d772c6044426bca65dc5f9d596be.txt`) — site her güncellendiğinde `api.indexnow.org`'a POST ile bildirilebilir.
