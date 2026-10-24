@@ -13,7 +13,7 @@ const langs = ['TR', 'EN', 'JA'];
     <a class="logo" href="#top">
       <svg class="logo-mark" viewBox="0 0 106 106" aria-hidden="true">
         <polygon points="16,24 100,24 58,98" fill="#963224" />
-        <polygon points="8,16 92,16 50,90" fill="#e2503f" stroke="#241f1a" stroke-width="4" stroke-linejoin="round" />
+        <polygon points="8,16 92,16 50,90" fill="#e2503f" stroke="#241f1a" stroke-width="4" stroke-linejoin="round" style="stroke:var(--ink)" />
       </svg>
       <span class="logo-word">yigiterf<span class="lab">·lab</span></span>
     </a>
@@ -24,10 +24,22 @@ const langs = ['TR', 'EN', 'JA'];
         ))}
       </ul>
     </nav>
-    <div class="lang-switch" role="group" aria-label="Dil / Language / 言語">
-      {langs.map((code) => (
-        <button type="button" data-lang={code.toLowerCase()} class="lang-btn">{code}</button>
-      ))}
+    <div class="header-tools">
+      <button class="tema-btn" id="tema-btn" type="button" aria-label="Gece / gündüz modunu değiştir" title="gece / gündüz">
+        <svg class="tema-ay" viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M15.5 12.2 A7 7 0 1 1 8 3.4 a5.6 5.6 0 1 0 7.5 8.8 Z" fill="currentColor" />
+        </svg>
+        <svg class="tema-gun" viewBox="0 0 20 20" aria-hidden="true">
+          <circle cx="10" cy="10" r="4" fill="currentColor" />
+          <path d="M10 1.2v2.2M10 16.6v2.2M18.8 10h-2.2M3.4 10H1.2M16.4 3.6l-1.6 1.6M5.2 14.8l-1.6 1.6M16.4 16.4l-1.6-1.6M5.2 5.2L3.6 3.6"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Dil / Language / 言語">
+        {langs.map((code) => (
+          <button type="button" data-lang={code.toLowerCase()} class="lang-btn">{code}</button>
+        ))}
+      </div>
     </div>
   </div>
 </header>

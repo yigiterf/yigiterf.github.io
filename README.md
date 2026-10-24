@@ -137,6 +137,9 @@ aramasında en güçlü geri bağlantı budur.
 
 ## Yapılacaklar (senin doldurman gerekenler)
 
+- [x] Gece / gündüz modu: header'daki ay/güneş düğmesi (hafıza: `localStorage['tema']`,
+      seçilmemişse sistem tercihine bakar; `?t=gece` / `?t=gunduz` ile de zorlanabilir).
+
 - [x] İletişim e-postası ayarlandı: `ferhatyigiter.mail@gmail.com`
       (`src/pages/index.astro` ve `public/terminal.js`).
 - [ ] İstersen terminalde `neofetch` çıktısını kendine göre zenginleştir.

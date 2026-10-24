@@ -4,6 +4,7 @@
    İki font ailesi: Space Grotesk (metin) + JetBrains Mono (etiket/kod)
    ============================================================ */
 :root {
+  color-scheme: light;
   --paper: #f7f2e9;
   --paper-2: #fffdf8;
   --ink: #241f1a;
@@ -21,8 +22,15 @@
   --pink: #fbdde4;
 
   --line: rgba(36, 31, 26, 0.16);
-  --shadow: 3px 3px 0 var(--ink);
-  --shadow-lg: 5px 5px 0 var(--ink);
+  --edge: var(--ink);                      /* sombatı gölge rengi (gece modunda ayrı) */
+  --glass: rgba(247, 242, 233, 0.88);      /* şeffaf başlık camı */
+  --grid-1: rgba(36, 31, 26, 0.035);       /* grafik kağıdı ince çizgi */
+  --grid-2: rgba(36, 31, 26, 0.06);        /* kalın çizgi */
+  --ok: #1c7c54;                           /* terminal [ok] */
+  --warn: #a16207;                         /* terminal uyarı */
+  --scrollthumb: rgba(36, 31, 26, 0.25);
+  --shadow: 3px 3px 0 var(--edge);
+  --shadow-lg: 5px 5px 0 var(--edge);
 
   /* CJK yedekleri: Japonca metin her makinede düzgün görünsün */
   --sans: 'Space Grotesk', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN',
@@ -57,11 +65,42 @@ body {
   z-index: -1;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(36, 31, 26, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(36, 31, 26, 0.035) 1px, transparent 1px),
-    linear-gradient(rgba(36, 31, 26, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(36, 31, 26, 0.06) 1px, transparent 1px);
+    linear-gradient(var(--grid-1) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-1) 1px, transparent 1px),
+    linear-gradient(var(--grid-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-2) 1px, transparent 1px);
   background-size: 26px 26px, 26px 26px, 130px 130px, 130px 130px;
+}
+
+/* ---- gece modu: "gece çizim defteri" paleti ---- */
+/* kağıt koyulaşır, çizgiler kremleşir, kırmızı alevlerde kalır,
+   pasteller oğotulenmiş koyu tonlara döner (kimlik aynı, ışık az) */
+:root[data-tema='dark'] {
+  color-scheme: dark;
+  --paper: #201b15;
+  --paper-2: #2c251d;
+  --ink: #ece2cf;
+  --ink-soft: #b9ab93;
+  --ink-faint: #9b8e79;
+  --red: #e2503f;
+  --red-deep: #e05a48;
+  --red-dark: #f07460;
+
+  --mint: #35584b;
+  --lilac: #46385e;
+  --peach: #5d4130;
+  --butter: #63532c;
+  --sky: #34566a;
+  --pink: #5f3442;
+
+  --line: rgba(236, 226, 207, 0.18);
+  --edge: #0e0b07;
+  --glass: rgba(32, 27, 21, 0.88);
+  --grid-1: rgba(236, 226, 207, 0.04);
+  --grid-2: rgba(236, 226, 207, 0.075);
+  --ok: #5cc287;
+  --warn: #e2b25a;
+  --scrollthumb: rgba(236, 226, 207, 0.22);
 }
 
 .container { max-width: 1140px; margin-inline: auto; padding-inline: 24px; }
@@ -74,7 +113,7 @@ body {
   top: 0;
   z-index: 60;
   border-bottom: 1.5px solid var(--ink);
-  background: rgba(247, 242, 233, 0.88);
+  background: var(--glass);
   backdrop-filter: blur(8px);
 }
 
@@ -131,7 +170,7 @@ body {
   border: 1.5px solid var(--ink);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 2px 2px 0 var(--ink);
+  box-shadow: 2px 2px 0 var(--edge);
   flex-shrink: 0;
 }
 .lang-btn {
@@ -150,6 +189,29 @@ body {
 .lang-btn:last-child { border-right: 0; }
 .lang-btn:hover { background: var(--butter); color: var(--ink); }
 .lang-btn.is-active { background: var(--red-deep); color: #fff8f2; }
+
+/* ---- gece/gündüz düğmesi (dil grubuyla aynı sticker dili) ---- */
+.header-tools { display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.tema-btn {
+  width: 37px;
+  height: 33px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper-2);
+  border: 1.5px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 var(--edge);
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.12s, color 0.12s;
+}
+.tema-btn:hover { background: var(--butter); color: var(--ink); }
+.tema-btn svg { width: 15px; height: 15px; }
+.tema-btn .tema-gun { display: none; }
+:root[data-tema='dark'] .tema-btn .tema-ay { display: none; }
+:root[data-tema='dark'] .tema-btn .tema-gun { display: block; }
 
 /* ---- 3B dönen üçgen (logo) ---- */
 @keyframes spinY {
@@ -234,8 +296,8 @@ body {
   box-shadow: var(--shadow);
   transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
 }
-.btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
-.btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--edge); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--edge); }
 .btn-primary { background: var(--red-deep); color: #fff8f2; }
 .btn-primary:hover { background: var(--red-dark); }
 
@@ -321,7 +383,7 @@ body {
   font-weight: 600;
   border: 1.5px solid var(--ink);
   border-radius: 6px;
-  box-shadow: 2px 2px 0 var(--ink);
+  box-shadow: 2px 2px 0 var(--edge);
   padding: 3px 9px;
   background: var(--mint);
 }
@@ -425,7 +487,7 @@ body {
 .term-paper {
   border: 1.5px solid var(--ink);
   border-radius: 14px;
-  background: #fffdf6;
+  background: var(--paper-2);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
 }
@@ -461,7 +523,7 @@ body {
   font-size: 0.83rem;
   line-height: 1.6;
   cursor: text;
-  background: #fffdf6;
+  background: var(--paper-2);
 }
 .term-out > div { white-space: pre-wrap; }
 .term-line { display: flex; align-items: baseline; gap: 9px; }
@@ -477,10 +539,10 @@ body {
   font-size: 0.83rem;
   caret-color: var(--red);
 }
-#term-out .l-ok { color: #1c7c54; }
-#term-out .l-warn { color: #a16207; }
+#term-out .l-ok { color: var(--ok); }
+#term-out .l-warn { color: var(--warn); }
 #term-out .l-err { color: var(--red-deep); }
-#term-out .l-dim { color: #6f6862; }
+#term-out .l-dim { color: var(--ink-faint); }
 #term-out .banner { color: var(--ink); }
 
 .term-note { margin-top: 14px; font-family: var(--mono); font-size: 0.74rem; color: var(--ink-faint); }
@@ -589,5 +651,5 @@ body {
 
 /* scrollbar */
 ::-webkit-scrollbar { width: 11px; height: 11px; }
-::-webkit-scrollbar-thumb { background: rgba(36, 31, 26, 0.25); border-radius: 6px; border: 3px solid var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--scrollthumb); border-radius: 6px; border: 3px solid var(--paper); }
 ::-webkit-scrollbar-track { background: transparent; }

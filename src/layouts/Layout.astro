@@ -116,10 +116,23 @@ const jsonLd = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <script is:inline>
+      (function () {
+        var s = null;
+        try { s = localStorage.getItem('tema'); } catch (e) {}
+        var q = new URLSearchParams(location.search).get('t');
+        if (q === 'gece') s = 'dark';
+        else if (q === 'gunduz') s = 'light';
+        if (!s) s = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.tema = s;
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.content = s === 'dark' ? '#201b15' : '#f7f2e9';
+      })();
+    </script>
     <meta name="generator" content={Astro.generator} />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="author" content="Ferhat Yiğiter" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#f7f2e9" />
 
     <link rel="canonical" href={`${SITE_URL}/`} />
@@ -174,5 +187,6 @@ const jsonLd = {
     <script src="/github-live.js" defer></script>
     <script src="/terminal.js" defer></script>
     <script src="/robot-peek.js" defer></script>
+    <script src="/gece.js" defer></script>
   </body>
 </html>
